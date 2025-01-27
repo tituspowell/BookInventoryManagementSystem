@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BookInventoryManagementSystem.Application\BookInventoryManagementSystem.Common.csproj" />
+    <ProjectReference Include="..\BookInventoryManagementSystem.Common\BookInventoryManagementSystem.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
