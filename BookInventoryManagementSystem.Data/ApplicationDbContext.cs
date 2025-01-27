@@ -17,11 +17,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
     // To create new data classes, you can add a property below and then right-click on the class name and select "Quick Actions and Refactorings" -> "Generate class"
-    //public DbSet<LeaveType> LeaveTypes { get; set; }
-    //public DbSet<Period> Periods { get; set; }
-    //public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-    //public DbSet<LeaveRequestStatus> LeaveRequestStatus { get; set; } // This is a look-up table in case, say, you want to rename one without messing up the records
-    //public DbSet<LeaveRequest> LeaveRequests { get; set; }
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Book> Reviews { get; set; }
 
 
     // Overriding this method is how you seed the database with initial values
