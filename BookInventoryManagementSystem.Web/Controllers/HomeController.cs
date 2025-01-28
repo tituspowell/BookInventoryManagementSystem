@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using BookInventoryManagementSystem.Web.Models;
+using BookInventoryManagementSystem.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookInventoryManagementSystem.Web.Controllers

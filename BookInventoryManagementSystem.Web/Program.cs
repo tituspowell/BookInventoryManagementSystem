@@ -1,5 +1,5 @@
 using BookInventoryManagementSystem.Application;
-using BookInventoryManagementSystem.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +8,15 @@ DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration
 
 // Use our AddApplicationServices extension method to register services from the Application project
 ApplicationServicesRegistration.AddApplicationServices(builder.Services);
+
+// Enable authorization stuff
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(Roles.AdminOrLibrarian, policy => policy.RequireRole(Roles.Administrator, Roles.Librarian));
+});
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -35,7 +44,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-app.MapRazorPages()
-   .WithStaticAssets();
+//app.MapRazorPages()
+//   .WithStaticAssets();
 
 app.Run();
