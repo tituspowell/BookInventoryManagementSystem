@@ -1,13 +1,34 @@
-using BookInventoryManagementSystem.Application;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Use our DataServicesRegistration extension method to register data services
-DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration);
+// Add data services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-// Use our AddApplicationServices extension method to register services from the Application project
-ApplicationServicesRegistration.AddApplicationServices(builder.Services);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString).ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+// Add Identity services
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = true;
+    // Other Identity configurations
+})
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// Add AutoMapper
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// This seemed to be missing, although isn't in the project that I'm copying the structure from.
+// It must be there implicitly, somehow.
+builder.Services.AddRazorPages();
 
 // Enable authorization stuff
 builder.Services.AddAuthorization(options =>
@@ -44,7 +65,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-//app.MapRazorPages()
-//   .WithStaticAssets();
+app.MapRazorPages()
+   .WithStaticAssets();
 
 app.Run();
