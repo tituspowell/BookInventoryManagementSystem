@@ -1,10 +1,9 @@
 ﻿using BookInventoryManagementSystem.Application.Services;
-using BookInventoryManagementSystem.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Web.Controllers
 {
-    public class BooksController(ApplicationDbContext _context, IBooksService _booksService) : Controller
+    public class BooksController(IBooksService _booksService) : Controller
     {
 
         // GET: Books
@@ -21,8 +20,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = await _booksService.GetBookAsync<BookDetailsViewModel>(id.Value);
+
             if (book == null)
             {
                 return NotFound();
@@ -42,15 +41,14 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] Book book)
+        public async Task<IActionResult> Create([Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] BookCreateViewModel bookVM)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(book);
-                await _context.SaveChangesAsync();
+                await _booksService.CreateAsync(bookVM);
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View(bookVM);
         }
 
         // GET: Books/Edit/5
@@ -61,7 +59,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books.FindAsync(id);
+            var book = await _booksService.GetBookAsync<BookEditViewModel>(id.Value);
+
             if (book == null)
             {
                 return NotFound();
@@ -74,9 +73,9 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] BookEditViewModel bookVM)
         {
-            if (id != book.Id)
+            if (id != bookVM.Id)
             {
                 return NotFound();
             }
@@ -85,12 +84,11 @@ namespace BookInventoryManagementSystem.Web.Controllers
             {
                 try
                 {
-                    _context.Update(book);
-                    await _context.SaveChangesAsync();
+                    await _booksService.EditAsync(bookVM);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.Id))
+                    if (!BookExists(bookVM.Id))
                     {
                         return NotFound();
                     }
@@ -101,7 +99,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View(bookVM);
         }
 
         // GET: Books/Delete/5
@@ -112,8 +110,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Books
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var book = await _booksService.GetBookAsync<BookDetailsViewModel>(id.Value);
+
             if (book == null)
             {
                 return NotFound();
@@ -127,19 +125,14 @@ namespace BookInventoryManagementSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Books.FindAsync(id);
-            if (book != null)
-            {
-                _context.Books.Remove(book);
-            }
+            await _booksService.DeleteAsync(id);
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)
         {
-            return _context.Books.Any(e => e.Id == id);
+            return _booksService.BookExists(id);
         }
     }
 }
