@@ -10,8 +10,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var bookVMList = await _booksService.GetBooksAsync();
-            return View(bookVMList);
+            return View(await _booksService.GetAllAsync());
         }
 
         // GET: Books/Details/5
