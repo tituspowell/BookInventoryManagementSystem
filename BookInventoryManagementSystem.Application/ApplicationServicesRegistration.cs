@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BookInventoryManagementSystem.Application.Services.Email;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace BookInventoryManagementSystem.Application;
@@ -24,7 +25,7 @@ public static class ApplicationServicesRegistration
         //services.AddScoped<ILeaveRequestsService, LeaveRequestsService>();
         //services.AddScoped<IPeriodsService, PeriodsService>();
         //services.AddScoped<IUserService, UserService>();
-        //services.AddTransient<IEmailSender, EmailSender>();
+        services.AddTransient<IEmailSender, EmailSender>();
 
         return services;
     }
