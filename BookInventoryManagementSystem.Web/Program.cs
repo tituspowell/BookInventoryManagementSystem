@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,8 +22,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Add AutoMapper
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// Use our AddApplicationServices extension method to register services from the Application project
+ApplicationServicesRegistration.AddApplicationServices(builder.Services);
 
 // This seemed to be missing, although isn't in the project that I'm copying the structure from.
 // It must be there implicitly, somehow.

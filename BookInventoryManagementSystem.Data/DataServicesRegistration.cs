@@ -9,6 +9,8 @@ public static class DataServicesRegistration
 {
     public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
     {
+        // NOT USED! DON'T ADD ANYTHING HERE!
+
         // Add services to the container.
         var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 

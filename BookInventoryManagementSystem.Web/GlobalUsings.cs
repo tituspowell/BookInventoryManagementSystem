@@ -1,7 +1,7 @@
 ﻿global using BookInventoryManagementSystem.Common.Static;
 global using BookInventoryManagementSystem.Data;
 global using BookInventoryManagementSystem.Application;
-global using BookInventoryManagementSystem.Application.Models;
+global using BookInventoryManagementSystem.Application.ViewModels.Books;
 global using Microsoft.AspNetCore.Authentication;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Identity;

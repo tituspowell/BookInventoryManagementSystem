@@ -2,7 +2,7 @@
 
 namespace BookInventoryManagementSystem.Data.Entities;
 
-public abstract class BaseEntity
+public abstract class BaseEntityWithId
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
