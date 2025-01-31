@@ -18,9 +18,9 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UnparsedAuthors" class="control-label"></label>
-                <textarea asp-for="UnparsedAuthors" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="UnparsedAuthors" class="text-danger"></span>
+                <label asp-for="Author" class="control-label"></label>
+                <textarea asp-for="Author" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Author" class="text-danger"></span>
                 <small class="form-text text-muted">Enter each author on a new line.</small>
             </div>
             <div class="form-group">
@@ -49,14 +49,11 @@
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-info" />
+                <a asp-action="Index" class="btn btn-primary">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

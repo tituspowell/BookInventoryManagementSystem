@@ -2,5 +2,6 @@
 
 public class BookDeleteViewModel
 {
+    // QQ TODO
     public required int Id { get; set; }
 }

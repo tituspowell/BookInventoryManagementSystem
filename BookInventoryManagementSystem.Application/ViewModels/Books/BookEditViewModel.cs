@@ -1,7 +1,5 @@
 ﻿namespace BookInventoryManagementSystem.Application.ViewModels.Books;
 
-public class BookEditViewModel : BookBaseFieldsWithUnparsedListsViewModel
+public class BookEditViewModel : BookBaseFieldsIncludingIdViewModel
 {
-    [Required]
-    public required int Id { get; set; }
 }

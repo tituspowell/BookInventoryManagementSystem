@@ -2,6 +2,6 @@
 
 namespace BookInventoryManagementSystem.Application.ViewModels.Books;
 
-public class BookCreateViewModel : BookBaseFieldsWithUnparsedListsViewModel
+public class BookCreateViewModel : BookBaseFieldsViewModel
 {
 }

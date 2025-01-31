@@ -44,7 +44,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         public async Task<IActionResult> Create(BookCreateViewModel bookVM)
         {
             // QQ Debugging
-            Console.WriteLine($"Received UnparsedAuthors: {bookVM.UnparsedAuthors}");
+            //Console.WriteLine($"Received UnparsedAuthors: {bookVM.UnparsedAuthors}");
 
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] BookEditViewModel bookVM)
+        public async Task<IActionResult> Edit(int id, BookEditViewModel bookVM)
         {
             if (id != bookVM.Id)
             {

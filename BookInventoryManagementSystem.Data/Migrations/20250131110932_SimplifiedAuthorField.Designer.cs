@@ -4,6 +4,7 @@ using BookInventoryManagementSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookInventoryManagementSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250131110932_SimplifiedAuthorField")]
+    partial class SimplifiedAuthorField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +110,7 @@ namespace BookInventoryManagementSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBtadabOAAjpv9J6eIJCKswx9NyhK7iF4BGbM/0wb3dff0ZtCVd787Y6Tg9NSK5hOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBqWWjX4fMPP7QpczhH8JZzAvnWHPNnuhP8/WmBQnZk8RQwLbxb6o/40z4LEhcHY+Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "SECURITYSTAMP",
                             TwoFactorEnabled = false,
@@ -123,7 +126,7 @@ namespace BookInventoryManagementSystem.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
+                    b.PrimitiveCollection<string>("Authors")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -139,7 +142,8 @@ namespace BookInventoryManagementSystem.Data.Migrations
                     b.Property<DateOnly?>("PublicationYear")
                         .HasColumnType("date");
 
-                    b.Property<string>("Tags")
+                    b.PrimitiveCollection<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
