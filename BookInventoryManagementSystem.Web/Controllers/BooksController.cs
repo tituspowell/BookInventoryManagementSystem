@@ -44,7 +44,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         public async Task<IActionResult> Create(BookCreateViewModel bookVM)
         {
             // QQ Debugging
-            Console.WriteLine($"Received AuthorsUnparsed: {bookVM.AuthorsUnparsed}");
+            Console.WriteLine($"Received UnparsedAuthors: {bookVM.UnparsedAuthors}");
 
             if (ModelState.IsValid)
             {
