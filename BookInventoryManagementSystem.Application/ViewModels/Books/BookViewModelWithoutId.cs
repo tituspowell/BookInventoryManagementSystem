@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace BookInventoryManagementSystem.Application.ViewModels.Books.Shared;
+namespace BookInventoryManagementSystem.Application.ViewModels.Books;
 
-public abstract class BookBaseFieldsViewModel
+public class BookViewModelWithoutId
 {
     // All the common fields for a book, excluding ID since that's not always needed in the various view models
     [Required]

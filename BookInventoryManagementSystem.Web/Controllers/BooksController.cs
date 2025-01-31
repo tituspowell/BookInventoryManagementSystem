@@ -20,7 +20,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookDetailsViewModel>(id.Value);
+            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
 
             if (book == null)
             {
@@ -41,7 +41,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BookCreateViewModel bookVM)
+        public async Task<IActionResult> Create(BookViewModelWithoutId bookVM)
         {
             // QQ Debugging
             //Console.WriteLine($"Received UnparsedAuthors: {bookVM.UnparsedAuthors}");
@@ -62,7 +62,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookEditViewModel>(id.Value);
+            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
 
             if (book == null)
             {
@@ -76,7 +76,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, BookEditViewModel bookVM)
+        public async Task<IActionResult> Edit(int id, BookViewModelWithId bookVM)
         {
             if (id != bookVM.Id)
             {
@@ -113,7 +113,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookDetailsViewModel>(id.Value);
+            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
 
             if (book == null)
             {

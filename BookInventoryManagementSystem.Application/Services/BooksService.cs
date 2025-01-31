@@ -6,11 +6,11 @@ namespace BookInventoryManagementSystem.Application.Services;
 
 public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBooksService
 {
-    public async Task<List<BookIndexViewModel>> GetAllAsync()
+    public async Task<List<BookViewModelWithId>> GetAllAsync()
     {
         List<Book> bookList = await _context.Books.ToListAsync();
 
-        var bookVMList = _mapper.Map<List<BookIndexViewModel>>(bookList);
+        var bookVMList = _mapper.Map<List<BookViewModelWithId>>(bookList);
         return bookVMList;
     }
 
@@ -27,7 +27,7 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
         return bookVM;
     }
 
-    public async Task CreateAsync(BookCreateViewModel bookVM)
+    public async Task CreateAsync(BookViewModelWithoutId bookVM)
     {
         var book = _mapper.Map<Book>(bookVM);
      
@@ -35,7 +35,7 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
         await _context.SaveChangesAsync();
     }
 
-    public async Task EditAsync(BookEditViewModel bookVM)
+    public async Task EditAsync(BookViewModelWithId bookVM)
     {
         var book = _mapper.Map<Book>(bookVM);
 

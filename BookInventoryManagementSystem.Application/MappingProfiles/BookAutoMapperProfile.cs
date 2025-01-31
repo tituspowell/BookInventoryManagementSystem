@@ -7,9 +7,7 @@ internal class BookAutoMapperProfile : Profile
 {
     public BookAutoMapperProfile()
     {
-        CreateMap<Book, BookIndexViewModel>();
-        CreateMap<Book, BookDetailsViewModel>();
-        CreateMap<BookCreateViewModel, Book>();
-        CreateMap<BookEditViewModel, Book>().ReverseMap();
+        CreateMap<Book, BookViewModelWithId>().ReverseMap();
+        CreateMap<BookViewModelWithoutId, Book>();
     }
 }

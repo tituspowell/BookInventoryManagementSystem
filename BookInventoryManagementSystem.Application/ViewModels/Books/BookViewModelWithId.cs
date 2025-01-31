@@ -1,7 +1,6 @@
 ﻿namespace BookInventoryManagementSystem.Application.ViewModels.Books;
 
-public class BookDeleteViewModel
+public class BookViewModelWithId : BookViewModelWithoutId
 {
-    // QQ TODO
     public required int Id { get; set; }
 }

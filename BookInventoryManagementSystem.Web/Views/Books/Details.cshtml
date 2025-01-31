@@ -1,14 +1,13 @@
-﻿@model BookDetailsViewModel
+﻿@model BookViewModelWithId
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Book Details</h1>
+<h1>@Model.Title by @Model.Author</h1>
 
 <div>
-    <h4>@Model.Title by @Model.Author</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
