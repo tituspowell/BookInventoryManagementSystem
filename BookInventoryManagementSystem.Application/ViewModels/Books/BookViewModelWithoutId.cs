@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BookInventoryManagementSystem.Application.ViewModels.CustomValidationAttributes;
+using System.ComponentModel;
 
 namespace BookInventoryManagementSystem.Application.ViewModels.Books;
 
@@ -13,7 +14,7 @@ public class BookViewModelWithoutId
 
     [Required]
     [DisplayName("Publication Year")]
-    [Range(1000,9999, ErrorMessage = "Year must be between 1000 and the current year")]
+    [YearRange]
     public int PublicationYear { get; set; }
 
     [StringLength(13)]
