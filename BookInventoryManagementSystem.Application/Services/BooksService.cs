@@ -30,6 +30,11 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
     public async Task CreateAsync(BookCreateViewModel bookVM)
     {
         var book = _mapper.Map<Book>(bookVM);
+     
+        // Convert the authors input string, which has newlines separating the authors, into a list, which is how we store them in the database
+        var parsedListOfAuthors = bookVM.AuthorsUnparsed.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        book.Authors = parsedListOfAuthors;
+
         _context.Add(book);
         await _context.SaveChangesAsync();
     }

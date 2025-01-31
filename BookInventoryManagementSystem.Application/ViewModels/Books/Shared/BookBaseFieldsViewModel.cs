@@ -16,7 +16,7 @@ public abstract class BookBaseFieldsViewModel
     public string? Genre { get; set; }
     [DisplayName("Cover Image URL")]
     public string? CoverImageURL { get; set; }
-    public List<string> Tags { get; set; } = [];
+    public List<string>? Tags { get; set; } = [];
 
     public string GetParsedAuthorList()
     {

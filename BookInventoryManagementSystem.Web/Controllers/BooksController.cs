@@ -41,11 +41,13 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Authors,PublicationYear,ISBN,Genre,CoverImageURL,Tags,Id")] BookCreateViewModel bookVM)
+        public async Task<IActionResult> Create(BookCreateViewModel bookVM)
         {
+            // QQ Debugging
+            Console.WriteLine($"Received AuthorsUnparsed: {bookVM.AuthorsUnparsed}");
+
             if (ModelState.IsValid)
             {
-                //var parsedAuthors = bookVM.Authors.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 await _booksService.CreateAsync(bookVM);
                 return RedirectToAction(nameof(Index));
             }
