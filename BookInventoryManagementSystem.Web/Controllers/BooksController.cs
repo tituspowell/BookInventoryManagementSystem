@@ -45,6 +45,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var parsedAuthors = bookVM.Authors.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                 await _booksService.CreateAsync(bookVM);
                 return RedirectToAction(nameof(Index));
             }
