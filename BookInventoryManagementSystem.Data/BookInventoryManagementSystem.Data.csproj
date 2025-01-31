@@ -26,4 +26,8 @@
     <ProjectReference Include="..\BookInventoryManagementSystem.Common\BookInventoryManagementSystem.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

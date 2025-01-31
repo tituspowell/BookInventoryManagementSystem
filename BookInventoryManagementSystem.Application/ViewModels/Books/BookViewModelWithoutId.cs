@@ -13,7 +13,8 @@ public class BookViewModelWithoutId
 
     [Required]
     [DisplayName("Publication Year")]
-    public DateOnly? PublicationYear { get; set; }
+    [Range(1000,9999, ErrorMessage = "Year must be between 1000 and the current year")]
+    public int PublicationYear { get; set; }
 
     [StringLength(13)]
     public string? ISBN { get; set; }

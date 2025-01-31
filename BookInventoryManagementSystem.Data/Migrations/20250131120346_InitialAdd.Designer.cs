@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookInventoryManagementSystem.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250131111326_ActuallySimplifiedAuthors")]
-    partial class ActuallySimplifiedAuthors
+    [Migration("20250131120346_InitialAdd")]
+    partial class InitialAdd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,7 +110,7 @@ namespace BookInventoryManagementSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBtadabOAAjpv9J6eIJCKswx9NyhK7iF4BGbM/0wb3dff0ZtCVd787Y6Tg9NSK5hOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMV0hDwZrGEFzezeRyaQsNoXW7avKX/OVEYc1pO3bL3RMeijo6RkVyygBf/ycDipbQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "SECURITYSTAMP",
                             TwoFactorEnabled = false,
@@ -139,8 +139,8 @@ namespace BookInventoryManagementSystem.Data.Migrations
                     b.Property<string>("ISBN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("PublicationYear")
-                        .HasColumnType("date");
+                    b.Property<int>("PublicationYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)");

@@ -61,12 +61,12 @@ namespace BookInventoryManagementSystem.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Authors = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PublicationYear = table.Column<DateOnly>(type: "date", nullable: true),
+                    Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PublicationYear = table.Column<int>(type: "int", nullable: false),
                     ISBN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CoverImageURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,7 +192,7 @@ namespace BookInventoryManagementSystem.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "d6e40b98-aec1-4434-b987-d65f340536f4", 0, "stamp-admin-user", "admin@localhost.com", true, "Default", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEO/LujHEIhF9yzKjDHyJt+LZ+4eWl+8eZsGG7ZTNzHeS87L1FBqkiv5+XaTSiFjTFw==", null, false, "SECURITYSTAMP", false, "admin@localhost.com" });
+                values: new object[] { "d6e40b98-aec1-4434-b987-d65f340536f4", 0, "stamp-admin-user", "admin@localhost.com", true, "Default", "Admin", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMV0hDwZrGEFzezeRyaQsNoXW7avKX/OVEYc1pO3bL3RMeijo6RkVyygBf/ycDipbQ==", null, false, "SECURITYSTAMP", false, "admin@localhost.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -107,7 +107,7 @@ namespace BookInventoryManagementSystem.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBtadabOAAjpv9J6eIJCKswx9NyhK7iF4BGbM/0wb3dff0ZtCVd787Y6Tg9NSK5hOw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMV0hDwZrGEFzezeRyaQsNoXW7avKX/OVEYc1pO3bL3RMeijo6RkVyygBf/ycDipbQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "SECURITYSTAMP",
                             TwoFactorEnabled = false,
@@ -136,8 +136,8 @@ namespace BookInventoryManagementSystem.Data.Migrations
                     b.Property<string>("ISBN")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateOnly?>("PublicationYear")
-                        .HasColumnType("date");
+                    b.Property<int>("PublicationYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Tags")
                         .HasColumnType("nvarchar(max)");
