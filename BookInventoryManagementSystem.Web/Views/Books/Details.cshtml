@@ -7,6 +7,14 @@
 
 <h1>@Model.Title by @Model.Author</h1>
 
+@if (!string.IsNullOrEmpty(Model.CoverImageURL))
+{
+    <div>
+        <br />
+        <img src="@Model.CoverImageURL" style="max-height: 400px; width: auto" alt="Cover Image" loading="lazy"/>
+    </div>
+}
+
 <div>
     <hr />
     <dl class="row">
@@ -39,12 +47,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoverImageURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoverImageURL)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Tags)

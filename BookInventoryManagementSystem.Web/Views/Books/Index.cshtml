@@ -24,16 +24,7 @@
                 @Html.DisplayNameFor(model => model.PublicationYear)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ISBN)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoverImageURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags)
             </th>
             <th></th>
         </tr>
@@ -51,16 +42,7 @@
                 @Html.DisplayFor(modelItem => item.PublicationYear)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoverImageURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tags)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
