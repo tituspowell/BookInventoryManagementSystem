@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>@Model.Title by @Model.Author</h1>
+<h1><strong>@Model.Title</strong> by @Model.Author</h1>
 
 @if (!string.IsNullOrEmpty(Model.CoverImageURL))
 {
     <div>
+        <hr />
         <br />
         <img src="@Model.CoverImageURL" style="max-height: 400px; width: auto" alt="Cover Image" loading="lazy"/>
+        <br />
     </div>
 }
 

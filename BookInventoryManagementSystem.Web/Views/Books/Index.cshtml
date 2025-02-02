@@ -14,6 +14,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -32,6 +33,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                    @if (!string.IsNullOrEmpty(item.CoverImageURL))
+                    {
+                        <img src="@item.CoverImageURL" style="max-height: 50px; width: auto" alt="Cover Image" loading="lazy" />
+                    }
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
