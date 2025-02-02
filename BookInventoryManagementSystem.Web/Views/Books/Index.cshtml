@@ -16,16 +16,13 @@
         <tr>
             <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]">@Html.DisplayNameFor(model => model.Title)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]">@Html.DisplayNameFor(model => model.Author)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PublicationYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.PublicationYear)</a>
             </th>
             <th></th>
         </tr>
@@ -47,9 +44,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublicationYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
