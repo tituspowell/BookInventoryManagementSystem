@@ -13,8 +13,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
             ViewData["AuthorSortParm"] = sortOrder == "Author" ? "author_desc" : "Author";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var books = from b in await _booksService.GetAllAsync()
-                        select b;
+            var books = from book in await _booksService.GetAllAsync()
+                        select book;
 
             switch (sortOrder)
             {
