@@ -21,19 +21,21 @@ public class UserService(UserManager<ApplicationUser> _userManager,
     public async Task<List<UserViewModel>> GetUsersAsync()
     {
         var users = await _userManager.Users.ToListAsync();
-
-        var userVMs = new List<UserViewModel>();
+        var userRoles = new Dictionary<string, string>();
 
         foreach (var user in users)
         {
-            var userVM = new UserViewModel {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = Roles.Administrator // TODO: look up actual role type
-            };
-            userVMs.Add(userVM);
+            var roles = await _userManager.GetRolesAsync(user);
+            userRoles[user.Id] = roles.FirstOrDefault() ?? "No Role";
         }
+
+        var userVMs = users.Select(user => new UserViewModel
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Role = userRoles[user.Id]
+        }).ToList();
 
         return userVMs;
     }
