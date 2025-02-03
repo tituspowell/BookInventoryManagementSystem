@@ -2,8 +2,8 @@
 {
     public interface IUserService
     {
-        Task<ApplicationUser> GetLoggedInUser();
-        Task<ApplicationUser> GetUserById(string userId);
-        Task<List<ApplicationUser>> GetLibrarians();
+        Task<ApplicationUser> GetLoggedInUserAsync();
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<List<UserViewModel>> GetUsersAsync();
     }
 }
