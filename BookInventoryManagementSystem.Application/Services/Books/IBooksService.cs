@@ -1,5 +1,4 @@
-﻿
-namespace BookInventoryManagementSystem.Application.Services;
+﻿namespace BookInventoryManagementSystem.Application.Services.Books;
 
 public interface IBooksService
 {

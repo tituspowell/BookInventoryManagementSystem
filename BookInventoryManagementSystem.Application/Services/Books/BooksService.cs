@@ -2,7 +2,7 @@
 using BookInventoryManagementSystem.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookInventoryManagementSystem.Application.Services;
+namespace BookInventoryManagementSystem.Application.Services.Books;
 
 public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBooksService
 {
@@ -30,7 +30,7 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
     public async Task CreateAsync(BookViewModelWithoutId bookVM)
     {
         var book = _mapper.Map<Book>(bookVM);
-     
+
         _context.Add(book);
         await _context.SaveChangesAsync();
     }

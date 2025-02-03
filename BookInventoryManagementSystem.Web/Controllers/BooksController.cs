@@ -1,4 +1,4 @@
-﻿using BookInventoryManagementSystem.Application.Services;
+﻿using BookInventoryManagementSystem.Application.Services.Books;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Web.Controllers
