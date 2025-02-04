@@ -16,5 +16,5 @@ public class UserViewModel
     public string LastName { get; set; }
 
     [Required]
-    public string Role { get; set; }
+    public RolesEnum Role { get; set; }
 }

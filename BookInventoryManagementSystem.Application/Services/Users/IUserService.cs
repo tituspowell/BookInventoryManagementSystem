@@ -1,9 +1,12 @@
-﻿namespace BookInventoryManagementSystem.Application.Services.Users
+﻿
+namespace BookInventoryManagementSystem.Application.Services.Users
 {
     public interface IUserService
     {
-        Task<ApplicationUser> GetLoggedInUserAsync();
-        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<ApplicationUser> GetLoggedInApplicationUserAsync();
+        Task<UserViewModel> GetUserViewModelByIdAsync(string userId);
         Task<List<UserViewModel>> GetUsersAsync();
+        Task<IdentityResult> UpdateUserAsync(UserViewModel userViewModel);
+        Task<IdentityResult> DeleteUserAsync(string id);
     }
 }

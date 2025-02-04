@@ -40,51 +40,21 @@ public class UsersController(IUserService _userService) : Controller
         return View(users.ToList());
     }
 
-    // GET: UsersController/Details/5
-    public async Task<ActionResult> Details(int id)
-    {
-        // TODO
-        return View();
-    }
-
-    // GET: UsersController/Create
-    public async Task<ActionResult> Create()
-    {
-        // TODO
-        return View();
-    }
-
-    // POST: UsersController/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Create(IFormCollection collection)
-    {
-        // TODO
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
-    }
-
     // GET: UsersController/Edit/5
-    public async Task<ActionResult> Edit(int id)
+    public async Task<ActionResult> Edit(string id)
     {
-        // TODO
-        return View();
+        var userViewModel = await _userService.GetUserViewModelByIdAsync(id);
+        return View(userViewModel);
     }
 
     // POST: UsersController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> Edit(UserViewModel userViewModel)
     {
-        // TODO
         try
         {
+            await _userService.UpdateUserAsync(userViewModel);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -94,20 +64,20 @@ public class UsersController(IUserService _userService) : Controller
     }
 
     // GET: UsersController/Delete/5
-    public async Task<ActionResult> Delete(int id)
+    public async Task<ActionResult> Delete(string id)
     {
-        // TODO
-        return View();
+        var userViewModel = await _userService.GetUserViewModelByIdAsync(id);
+        return View(userViewModel);
     }
 
     // POST: UsersController/Delete/5
-    [HttpPost]
+    [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Delete(int id, IFormCollection collection)
+    public async Task<ActionResult> DeleteConfirmed(string id)
     {
-        // TODO
         try
         {
+            await _userService.DeleteUserAsync(id);
             return RedirectToAction(nameof(Index));
         }
         catch

@@ -7,3 +7,10 @@ public class Roles
     public const string Reader = "Reader";
     public const string AdminOrLibrarian = "AdminOrLibrarian";
 }
+
+public enum RolesEnum
+{
+    Administrator,
+    Librarian,
+    Reader
+}
