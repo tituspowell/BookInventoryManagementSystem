@@ -5,8 +5,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
 {
     public class BooksController(IBooksService _booksService) : Controller
     {
-
         // GET: Books
+        [HttpGet]
         public async Task<IActionResult> Index(string sortOrder)
         {
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
@@ -42,6 +42,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         }
 
         // GET: Books/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,6 +61,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
         }
 
         // GET: Books/Create
+        [HttpGet]
+        [Authorize(Roles = "Librarian,Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -70,6 +73,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Librarian,Administrator")]
         public async Task<IActionResult> Create(BookViewModelWithoutId bookVM)
         {
             // QQ Debugging
@@ -84,6 +88,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
         }
 
         // GET: Books/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Librarian,Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,6 +111,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Librarian,Administrator")]
         public async Task<IActionResult> Edit(int id, BookViewModelWithId bookVM)
         {
             if (id != bookVM.Id)
@@ -135,6 +142,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
         }
 
         // GET: Books/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Librarian,Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,6 +164,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Librarian,Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _booksService.DeleteAsync(id);

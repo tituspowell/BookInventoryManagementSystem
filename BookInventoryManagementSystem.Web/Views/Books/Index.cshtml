@@ -8,9 +8,10 @@
 <h1>Book Catalogue</h1>
 <br/>
 
-<p>
+@if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+{
     <a asp-action="Create" class="btn btn-primary">Add Book</a>
-</p>
+}
 <table class="table">
     <thead>
         <tr>
