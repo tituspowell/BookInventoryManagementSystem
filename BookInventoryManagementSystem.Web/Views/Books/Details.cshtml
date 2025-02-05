@@ -59,10 +59,10 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary px-0" style="width: 100px">Back</a>
     @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger">Delete</a>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-0" style="width: 100px">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger px-0" style="width: 100px">Delete</a>
     }
 </div>
