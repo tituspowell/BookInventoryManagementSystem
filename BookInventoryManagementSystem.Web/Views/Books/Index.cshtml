@@ -5,14 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Book Catalogue</h1>
-<br/>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Book Catalogue</h1>
+    @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+    {
+        <a asp-action="Create" class="btn btn-primary">Add Book</a>
+    }
+</div>
 
-@if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
-{
-    <a asp-action="Create" class="btn btn-primary">Add Book</a>
-}
-<table class="table">
+<table class="table pt-8">
     <thead>
         <tr>
             <th></th>
