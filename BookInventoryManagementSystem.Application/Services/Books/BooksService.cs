@@ -14,7 +14,12 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
         return bookVMList;
     }
 
-    public async Task<T?> GetBookAsync<T>(int id) where T : class
+    public async Task<Book?> GetBookAsync(int id)
+    {
+        return await _context.Books.FirstOrDefaultAsync(q => q.Id == id);
+    }
+
+    public async Task<BookViewModelWithId> GetBookViewModelWithIdAsync(int id)
     {
         var book = await _context.Books.FirstOrDefaultAsync(q => q.Id == id);
 
@@ -23,7 +28,7 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
             return null;
         }
 
-        var bookVM = _mapper.Map<T>(book);
+        var bookVM = _mapper.Map<BookViewModelWithId>(book);
         return bookVM;
     }
 

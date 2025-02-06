@@ -50,7 +50,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
+            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
 
             if (book == null)
             {
@@ -97,7 +97,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
+            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
 
             if (book == null)
             {
@@ -151,7 +151,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookAsync<BookViewModelWithId>(id.Value);
+            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
 
             if (book == null)
             {

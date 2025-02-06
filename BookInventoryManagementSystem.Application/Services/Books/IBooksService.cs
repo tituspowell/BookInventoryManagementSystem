@@ -1,4 +1,6 @@
-﻿namespace BookInventoryManagementSystem.Application.Services.Books;
+﻿using BookInventoryManagementSystem.Data.Entities;
+
+namespace BookInventoryManagementSystem.Application.Services.Books;
 
 public interface IBooksService
 {
@@ -7,5 +9,6 @@ public interface IBooksService
     Task DeleteAsync(int id);
     Task EditAsync(BookViewModelWithId bookVM);
     Task<List<BookViewModelWithId>> GetAllAsync();
-    Task<T?> GetBookAsync<T>(int id) where T : class;
+    Task<BookViewModelWithId> GetBookViewModelWithIdAsync(int id);
+    Task<Book?> GetBookAsync(int id);
 }
