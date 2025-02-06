@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookInventoryManagementSystem.Application.Services.Reviews;
 using BookInventoryManagementSystem.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,6 +59,9 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
         }
 
         _context.Remove(book);
+
+        // Associated reviews should automatically cascade delete because we configured it in ApplicationDbContext
+
         await _context.SaveChangesAsync();
     }
 

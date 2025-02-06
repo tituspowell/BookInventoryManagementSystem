@@ -6,8 +6,8 @@ public class Review : BaseEntityWithId
     public required string ReviewText { get; set; }
 
     // Foreign Keys
-    public required Book Book { get; set; }
-    public required int BookId { get; set; }
+    public int BookId { get; set; }
+    public Book Book { get; set; } = null!;
 
     public required ApplicationUser Reviewer { get; set; }
     public required string ReviewerId { get; set; }

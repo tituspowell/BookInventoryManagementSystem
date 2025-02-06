@@ -26,6 +26,14 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
 
+        // Cascade delete all reviews automatically if the associated book is deleted
+        // Probably unnecessary because that constraint was already set in the Review table in the database
+        builder.Entity<Review>()
+            .HasOne(r => r.Book)
+            .WithMany()
+            .HasForeignKey(r => r.BookId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         // Apply the configurations from the Configurations folder to seed the database with our default starter users and roles
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }

@@ -7,7 +7,19 @@
 
 <h1>Delete @(Model.Title)?</h1>
 
-<h3>This will permanently delete the book from the catalogue.</h3>
+@if (Model.NumberOfReviews == 0)
+{
+    <h3>This will permanently delete the book from the catalogue.</h3>
+}
+else if (Model.NumberOfReviews == 1)
+{
+    <h3>This will permanently delete the book and 1 review from the catalogue.</h3>
+}
+else
+{
+    <h3>This will permanently delete the book and @Model.NumberOfReviews reviews from the catalogue.</h3>
+}
+
 <div>
     <hr />
     <dl class="row">

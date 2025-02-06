@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookInventoryManagementSystem.Application.Services.Reviews;
 
-public class ReviewsService(ApplicationDbContext _context, IBooksService _booksService, IMapper _mapper)
+public class ReviewsService(ApplicationDbContext _context, IBooksService _booksService, IMapper _mapper) : IReviewsService
 {
     public async Task<float> GetRatingForBook(int id)
     {

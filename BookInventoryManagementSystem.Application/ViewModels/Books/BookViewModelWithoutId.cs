@@ -27,4 +27,12 @@ public class BookViewModelWithoutId
     public string? CoverImageURL { get; set; }
 
     public string? Tags { get; set; }
+
+    [Rating]
+    [DisplayName("Rating")]
+    public float AverageRating { get; set; } = 0;
+
+    [DisplayName("Reviews")]
+    public int NumberOfReviews { get; set; } = 0;
+
 }
