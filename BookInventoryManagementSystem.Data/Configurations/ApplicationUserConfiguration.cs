@@ -24,6 +24,36 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
                 SecurityStamp = "SECURITYSTAMP", // Adding a static value
                 FirstName = "Default",
                 LastName = "Admin",
+            },
+            new ApplicationUser
+            {
+                Id = "librarianid",
+                Email = "lib@localhost.com",
+                NormalizedEmail = "LIB@LOCALHOST.COM",
+                UserName = "lib@localhost.com",
+                NormalizedUserName = "LIB@LOCALHOST.COM",
+                //PasswordHash = "AQAAAAIAAYagAAAAEAjIpFqaJLTYjRFYEFXVjXNcUhVxGPxTXHo9Iq0Ck+OJXkUvMvYfIxKrRGDCmBBM3g==", // Pre-computed hash for "P@ssword1"
+                PasswordHash = hasher.HashPassword(null, "P@ssword1"),
+                EmailConfirmed = true,
+                ConcurrencyStamp = "stamp-admin-user", // Adding a static value
+                SecurityStamp = "SECURITYSTAMP", // Adding a static value
+                FirstName = "Sally",
+                LastName = "Sotherby",
+            },
+            new ApplicationUser
+            {
+                Id = "readerid",
+                Email = "reader@localhost.com",
+                NormalizedEmail = "READER@LOCALHOST.COM",
+                UserName = "reader@localhost.com",
+                NormalizedUserName = "READER@LOCALHOST.COM",
+                //PasswordHash = "AQAAAAIAAYagAAAAEAjIpFqaJLTYjRFYEFXVjXNcUhVxGPxTXHo9Iq0Ck+OJXkUvMvYfIxKrRGDCmBBM3g==", // Pre-computed hash for "P@ssword1"
+                PasswordHash = hasher.HashPassword(null, "P@ssword1"),
+                EmailConfirmed = true,
+                ConcurrencyStamp = "stamp-admin-user", // Adding a static value
+                SecurityStamp = "SECURITYSTAMP", // Adding a static value
+                FirstName = "Roger",
+                LastName = "Rabbit",
             }
             );
     }
