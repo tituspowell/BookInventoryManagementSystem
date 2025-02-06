@@ -26,15 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(builder);
 
-        // THESE WERE ALREADY COMMENTED OUT
-        // The seeding can be done here but rapidly leads to a messy file. So instead we move the seeding to separate custom classes.
-        // They can then be applied individually like this:
-        //builder.ApplyConfiguration(new IdentityRoleConfiguration());
-        //builder.ApplyConfiguration(new ApplicationUserConfiguration());
-        //builder.ApplyConfiguration(new IdentityUserRoleConfiguration());
-        //builder.ApplyConfiguration(new LeaveRequestStatusConfiguration());
-
-        // Or all at once like this:
+        // Apply the configurations from the Configurations folder to seed the database with our default starter users and roles
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }
