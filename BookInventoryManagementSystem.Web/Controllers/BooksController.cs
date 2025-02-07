@@ -1,9 +1,10 @@
 ﻿using BookInventoryManagementSystem.Application.Services.Books;
+using BookInventoryManagementSystem.Application.Services.BooksReviewsSharedService;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Web.Controllers
 {
-    public class BooksController(IBooksService _booksService) : Controller
+    public class BooksController(IBooksService _booksService, IBooksReviewsSharedService _booksReviewsSharedService) : Controller
     {
         // GET: Books
         [HttpGet]
@@ -50,7 +51,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
+            var book = await _booksReviewsSharedService.GetBookViewModelWithIdAndReviewsAsync(id.Value);
 
             if (book == null)
             {
@@ -97,7 +98,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
+            var book = await _booksReviewsSharedService.GetBookViewModelWithIdAndReviewsAsync(id.Value);
 
             if (book == null)
             {
@@ -151,7 +152,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksService.GetBookViewModelWithIdAsync(id.Value);
+            var book = await _booksReviewsSharedService.GetBookViewModelWithIdAndReviewsAsync(id.Value);
 
             if (book == null)
             {

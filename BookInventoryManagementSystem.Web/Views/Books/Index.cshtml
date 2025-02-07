@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<BookViewModelWithId>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -67,7 +69,11 @@
             </td>
             <td>
                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary px-0" style="width: 100px">View</a>
-            </td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-action="Create" asp-controller="Reviews" asp-route-bookId="@item.Id" class="btn btn-info px-0 mb-2" style="width: 100px">Review</a>
+                    }
+                </td>
         </tr>
 }
     </tbody>

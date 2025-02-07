@@ -7,7 +7,7 @@ public class BookViewModelWithoutId
 {
     // All the common fields for a book, excluding ID since that's not always needed in the various view models
     [Required]
-    public required string Title { get; set; }
+    public string Title { get; set; }
 
     [Required]
     public string Author { get; set; }
@@ -34,5 +34,4 @@ public class BookViewModelWithoutId
 
     [DisplayName("Reviews")]
     public int NumberOfReviews { get; set; } = 0;
-
 }

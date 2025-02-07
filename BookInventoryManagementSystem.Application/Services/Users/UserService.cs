@@ -12,6 +12,12 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
     }
 
+    public async Task<string> GetIdOfLoggedInUserAsync()
+    {
+        var user = await GetLoggedInApplicationUserAsync() ?? throw new Exception("User not found");
+        return user.Id;
+    }
+
     public async Task<UserViewModel> GetUserViewModelByIdAsync(string userId)
     {
         var applicationUser = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found!");
@@ -76,7 +82,7 @@ public class UserService(UserManager<ApplicationUser> _userManager,
 
         user.FirstName = userViewModel.FirstName;
         user.LastName = userViewModel.LastName;
-        
+
         RolesEnum existingRole = GetRoleForApplicationUserAsync(user).Result;
 
         if (existingRole != userViewModel.Role)

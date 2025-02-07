@@ -1,16 +1,23 @@
 ﻿using AutoMapper;
-using BookInventoryManagementSystem.Application.Services.Books;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookInventoryManagementSystem.Application.Services.Reviews;
 
 public class ReviewsService(ApplicationDbContext _context, IBooksService _booksService, IMapper _mapper) : IReviewsService
 {
+    public async Task CreateAsync(ReviewCreateViewModel reviewVM)
+    {
+        var review = _mapper.Map<Review>(reviewVM);
+
+        _context.Add(review);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int id)
+    {
+        return await _context.Reviews.Where(r => r.BookId == id).ToListAsync();
+    }
+
     public async Task<float> GetRatingForBook(int id)
     {
         var book = await _booksService.GetBookAsync(id);
@@ -22,4 +29,11 @@ public class ReviewsService(ApplicationDbContext _context, IBooksService _booksS
         return (float)averageRating;
     }
 
+    public async Task<bool> ReviewExistsByUserForBook(int bookId, string userId)
+    {
+        return await _context.Reviews
+            .Where(r => r.BookId == bookId)
+            .Where(r => r.ReviewerId == userId)
+            .AnyAsync();
+    }
 }

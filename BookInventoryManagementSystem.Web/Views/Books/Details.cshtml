@@ -1,4 +1,4 @@
-﻿@model BookViewModelWithId
+﻿@model BookViewModelWithIdAndReviews
 
 @{
     ViewData["Title"] = "Details";
@@ -77,8 +77,12 @@
 </div>
 <div>
     <a asp-action="Index" class="btn btn-primary px-0" style="width: 100px">Back</a>
+    <a asp-controller="Reviews" asp-action="Create" asp-route-bookId="@Model?.Id" class="btn btn-info px-0" style="width: 100px">Review</a>
+
     @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
     {
+        <br />
+        <br />
         <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-0" style="width: 100px">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger px-0" style="width: 100px">Delete</a>
     }

@@ -1,5 +1,6 @@
-﻿using BookInventoryManagementSystem.Application.Services.Books;
+﻿using BookInventoryManagementSystem.Application.Services.BooksReviewsSharedService;
 using BookInventoryManagementSystem.Application.Services.Email;
+using BookInventoryManagementSystem.Application.Services.Reviews;
 using BookInventoryManagementSystem.Application.Services.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,6 +22,8 @@ public static class ApplicationServicesRegistration
 
         // Add our entity services
         services.AddScoped<IBooksService, BooksService>();
+        services.AddScoped<IReviewsService, ReviewsService>();
+        services.AddScoped<IBooksReviewsSharedService, BooksReviewsSharedService>();
 
         return services;
     }

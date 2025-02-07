@@ -8,5 +8,6 @@ namespace BookInventoryManagementSystem.Application.Services.Users
         Task<List<UserViewModel>> GetUsersAsync();
         Task<IdentityResult> UpdateUserAsync(UserViewModel userViewModel);
         Task<IdentityResult> DeleteUserAsync(string id);
+        Task<string> GetIdOfLoggedInUserAsync();
     }
 }

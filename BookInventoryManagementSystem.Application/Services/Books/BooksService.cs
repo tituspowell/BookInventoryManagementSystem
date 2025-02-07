@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Application.Services.Books;
 
-public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBooksService
+public class BooksService(ApplicationDbContext _context,
+    IMapper _mapper) : IBooksService
 {
     public async Task<List<BookViewModelWithId>> GetAllAsync()
     {
@@ -18,19 +19,6 @@ public class BooksService(ApplicationDbContext _context, IMapper _mapper) : IBoo
     public async Task<Book?> GetBookAsync(int id)
     {
         return await _context.Books.FirstOrDefaultAsync(q => q.Id == id);
-    }
-
-    public async Task<BookViewModelWithId> GetBookViewModelWithIdAsync(int id)
-    {
-        var book = await _context.Books.FirstOrDefaultAsync(q => q.Id == id);
-
-        if (book == null)
-        {
-            return null;
-        }
-
-        var bookVM = _mapper.Map<BookViewModelWithId>(book);
-        return bookVM;
     }
 
     public async Task CreateAsync(BookViewModelWithoutId bookVM)

@@ -1,0 +1,33 @@
+﻿@model ReviewCreateViewModelWithBookInfo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Your review for <strong>@Model.BookTitle</strong> by <strong>@Model.BookAuthor</strong></h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RatingOutOfFive" class="control-label"></label>
+                <input asp-for="RatingOutOfFive" class="form-control" type="number" min="1" max="5" step="1" />
+                <span asp-validation-for="RatingOutOfFive" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReviewText" class="control-label"></label>
+                <textarea asp-for="ReviewText" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="ReviewText" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="BookId" />
+            <input type="hidden" asp-for="ReviewerId" />
+            <div class="form-group">
+                <input type="submit" value="Post" class="btn btn-primary px-0" style="width: 100px" />
+                <a asp-action="Details" asp-controller="Books" asp-route-id="@Model.BookId" class="btn btn-warning px-0" style="width: 100px">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

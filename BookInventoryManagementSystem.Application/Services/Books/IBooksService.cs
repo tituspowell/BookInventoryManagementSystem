@@ -9,6 +9,5 @@ public interface IBooksService
     Task DeleteAsync(int id);
     Task EditAsync(BookViewModelWithId bookVM);
     Task<List<BookViewModelWithId>> GetAllAsync();
-    Task<BookViewModelWithId> GetBookViewModelWithIdAsync(int id);
     Task<Book?> GetBookAsync(int id);
 }
