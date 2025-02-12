@@ -8,6 +8,5 @@ public interface IBooksService
     Task CreateAsync(BookViewModelWithoutId bookVM);
     Task DeleteAsync(int id);
     Task EditAsync(BookViewModelWithId bookVM);
-    Task<List<BookViewModelWithId>> GetAllAsync();
     Task<Book?> GetBookAsync(int id);
 }

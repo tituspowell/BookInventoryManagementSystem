@@ -3,5 +3,6 @@ namespace BookInventoryManagementSystem.Application.Services.BooksReviewsSharedS
 
 public interface IBooksReviewsSharedService
 {
+    Task<List<BookViewModelWithId>> GetAllBookViewModelsAsync();
     Task<BookViewModelWithIdAndReviews> GetBookViewModelWithIdAndReviewsAsync(int bookId);
 }

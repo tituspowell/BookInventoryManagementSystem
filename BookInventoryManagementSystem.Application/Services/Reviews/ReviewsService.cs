@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Application.Services.Reviews;
 
-public class ReviewsService(ApplicationDbContext _context, IBooksService _booksService, IMapper _mapper) : IReviewsService
+public class ReviewsService(ApplicationDbContext _context,
+    IBooksService _booksService,
+    IMapper _mapper) : IReviewsService
 {
     public async Task CreateAsync(ReviewCreateViewModel reviewVM)
     {
@@ -21,15 +23,33 @@ public class ReviewsService(ApplicationDbContext _context, IBooksService _booksS
             .ToListAsync();
     }
 
-    public async Task<float> GetRatingForBook(int id)
+    public async Task<float> GetAverageRatingForBook(int id)
     {
         var book = await _booksService.GetBookAsync(id);
 
-        var averageRating = await _context.Reviews
+        var reviews = await _context.Reviews
             .Where(r => r.BookId == id)
-            .AverageAsync(r => r.RatingOutOfFive);
+            .ToListAsync();
+
+        if (reviews.Count == 0)
+        {
+            return 0;
+        }
+
+        var averageRating = reviews.Average(r => r.RatingOutOfFive);
 
         return (float)averageRating;
+    }
+
+    public async Task<int> GetNumberOfReviewsForBook(int id)
+    {
+        var book = await _booksService.GetBookAsync(id);
+
+        var numberOfReviews = await _context.Reviews
+            .Where(r => r.BookId == id)
+            .CountAsync();
+
+        return numberOfReviews;
     }
 
     public async Task<bool> ReviewExistsByUserForBook(int bookId, string userId)
