@@ -12,9 +12,15 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
     }
 
-    public async Task<string> GetIdOfLoggedInUserAsync()
+    public async Task<string?> GetIdOfLoggedInUserAsync()
     {
-        var user = await GetLoggedInApplicationUserAsync() ?? throw new Exception("User not found");
+        var user = await GetLoggedInApplicationUserAsync();
+
+        if (user == null)
+        {
+            return null;
+        }
+
         return user.Id;
     }
 

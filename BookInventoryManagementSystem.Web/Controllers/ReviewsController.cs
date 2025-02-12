@@ -46,6 +46,13 @@ public class ReviewsController(ApplicationDbContext _context,
     {
         var userId = await _userService.GetIdOfLoggedInUserAsync();
 
+        if (userId == null)
+        {
+            // Don't let them create a review if they're not logged in
+            // TODO: better error handling
+            return NotFound();
+        }
+
         // Only allow one review per book for each user, so if one
         // exists then redirect to the Edit page
         if (await _reviewsService.ReviewExistsByUserForBook(bookId, userId))

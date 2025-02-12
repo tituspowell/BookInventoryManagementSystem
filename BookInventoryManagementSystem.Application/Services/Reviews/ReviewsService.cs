@@ -15,7 +15,10 @@ public class ReviewsService(ApplicationDbContext _context, IBooksService _booksS
 
     public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int id)
     {
-        return await _context.Reviews.Where(r => r.BookId == id).ToListAsync();
+        return await _context.Reviews
+            .Where(r => r.BookId == id)
+            .Include(r => r.Reviewer)
+            .ToListAsync();
     }
 
     public async Task<float> GetRatingForBook(int id)

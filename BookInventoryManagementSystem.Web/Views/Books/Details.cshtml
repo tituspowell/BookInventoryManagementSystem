@@ -36,18 +36,18 @@
             @Html.DisplayNameFor(model => model.AverageRating)
         </dt>
         <dd class="col-sm-10">
-                @if (Model.NumberOfReviews == 0)
-                {
-                    <text>-</text>
-                }
-                else if (Model.NumberOfReviews == 1)
-                {
-                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) review)</text>
-                }
-                else
-                {
-                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
-                }
+            @if (Model.NumberOfReviews == 0)
+            {
+                <text>-</text>
+            }
+            else if (Model.NumberOfReviews == 1)
+            {
+                @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) review)</text>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PublicationYear)
@@ -86,4 +86,30 @@
         <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-0" style="width: 100px">Edit</a>
         <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger px-0" style="width: 100px">Delete</a>
     }
+</div>
+
+<div>
+    @foreach (var review in Model.Reviews)
+    {
+        <hr />
+        @if (Model.LoggedInUserId != null && Model.LoggedInUserId == @review.ReviewerId)
+        {
+            <h3>
+                Your review
+            </h3>
+        }
+        else
+        {
+            <h3>
+                Review by @review.Reviewer.FirstName @review.Reviewer.LastName
+            </h3>
+        }
+        <h4>
+            Rating: @review.RatingOutOfFive
+        </h4>
+        <p>
+            @review.ReviewText
+        </p>
+    }
+    <hr />
 </div>
