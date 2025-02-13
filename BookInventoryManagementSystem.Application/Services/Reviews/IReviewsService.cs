@@ -10,5 +10,6 @@ namespace BookInventoryManagementSystem.Application.Services.Reviews
         Task<bool> ReviewExistsByUserForBookAsync(int bookId, string userId);
         Task<ReviewViewModelWithBookInfoAndId> GetReviewViewModelAsync(int id);
         Task<bool> AllowedToEditReview(int id);
+        Task EditAsync(ReviewViewModelWithBookInfoAndId reviewVM);
     }
 }

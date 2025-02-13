@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>@Model.BookTitle by @Model.BookAuthor</h1>
 
-<h4>Review</h4>
+<h4>Edit your review</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,33 +15,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RatingOutOfFive" class="control-label"></label>
-                <input asp-for="RatingOutOfFive" class="form-control" />
+                <input asp-for="RatingOutOfFive" class="form-control" type="number" min="1" max="5" step="1" />
                 <span asp-validation-for="RatingOutOfFive" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ReviewText" class="control-label"></label>
-                <input asp-for="ReviewText" class="form-control" />
+                <textarea asp-for="ReviewText" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="ReviewText" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="BookId" class="control-label"></label>
-                <select asp-for="BookId" class="form-control" asp-items="ViewBag.BookId"></select>
-                <span asp-validation-for="BookId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReviewerId" class="control-label"></label>
-                <select asp-for="ReviewerId" class="form-control" asp-items="ViewBag.ReviewerId"></select>
-                <span asp-validation-for="ReviewerId" class="text-danger"></span>
-            </div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="BookId" />
+            <input type="hidden" asp-for="ReviewerId" />
+            <input type="hidden" asp-for="BookTitle" />
+            <input type="hidden" asp-for="BookAuthor" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary px-0 mb-2" style="width: 100px" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-primary">Cancel</a>
+    <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-warning px-0" style="width: 100px">Cancel</a>
 </div>
 

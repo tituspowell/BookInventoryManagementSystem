@@ -99,6 +99,25 @@ public class ReviewsService(ApplicationDbContext _context,
         return false;
     }
 
+    public async Task EditAsync(ReviewViewModelWithBookInfoAndId reviewVM)
+    {
+        // Verify once more that they are allowed to edit this review, i.e. that it's theirs
+        var allowedToEditReview = await AllowedToEditReview(reviewVM.Id);
+        if (!allowedToEditReview)
+        {
+            throw new Exception("Not allowed to edit review!");
+        }
+
+        var existingReview = await _context.Reviews.SingleAsync(r => r.Id == reviewVM.Id) ?? throw new Exception($"Review with ID {reviewVM.Id} not found");
+
+        var book = await _context.Books.SingleAsync(b => b.Id == existingReview.BookId) ?? throw new Exception($"Book with ID {existingReview.BookId} not found");
+        existingReview.Book = book;
+
+        _mapper.Map(reviewVM, existingReview);
+
+        await _context.SaveChangesAsync();
+    }
+
     // Private methods
 
     private async Task<bool> ReviewIsByUserAsync(int id, string userId)

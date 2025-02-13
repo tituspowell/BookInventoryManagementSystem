@@ -126,36 +126,31 @@ public class ReviewsController(ApplicationDbContext _context,
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("RatingOutOfFive,ReviewText,BookId,ReviewerId,Id")] Review review)
+    [Authorize(Roles = "Librarian,Administrator,Reader")]
+    public async Task<IActionResult> Edit(ReviewViewModelWithBookInfoAndId reviewVM)
     {
-        if (id != review.Id)
+        if (!ModelState.IsValid)
         {
-            return NotFound();
+            return View(reviewVM);
         }
 
-        if (ModelState.IsValid)
+        try
         {
-            try
-            {
-                _context.Update(review);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewExists(review.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+            await _reviewsService.EditAsync(reviewVM);
         }
-        ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author", review.BookId);
-        ViewData["ReviewerId"] = new SelectList(_context.Users, "Id", "Id", review.ReviewerId);
-        return View(review);
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!ReviewExists(reviewVM.Id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return RedirectToAction("Details", "Books", new { id = reviewVM.BookId });
     }
 
     // GET: Reviews/Delete/5
