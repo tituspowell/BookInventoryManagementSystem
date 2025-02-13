@@ -22,8 +22,8 @@ public class BooksReviewsSharedService(
 
         foreach (var bookVM in bookVMList)
         {
-            bookVM.NumberOfReviews = await _reviewsService.GetNumberOfReviewsForBook(bookVM.Id);
-            bookVM.AverageRating = await _reviewsService.GetAverageRatingForBook(bookVM.Id);
+            bookVM.NumberOfReviews = await _reviewsService.GetNumberOfReviewsForBookAsync(bookVM.Id);
+            bookVM.AverageRating = await _reviewsService.GetAverageRatingForBookAsync(bookVM.Id);
         }
 
         return bookVMList;
@@ -44,6 +44,8 @@ public class BooksReviewsSharedService(
         bookVM.Reviews = await _reviewsService.GetReviewsForBookAsync(book.Id);
 
         bookVM.LoggedInUserId = await _userService.GetIdOfLoggedInUserAsync();
+
+        bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserId);
 
         return bookVM;
     }

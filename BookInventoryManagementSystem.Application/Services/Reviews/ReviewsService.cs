@@ -23,7 +23,7 @@ public class ReviewsService(ApplicationDbContext _context,
             .ToListAsync();
     }
 
-    public async Task<float> GetAverageRatingForBook(int id)
+    public async Task<float> GetAverageRatingForBookAsync(int id)
     {
         var book = await _booksService.GetBookAsync(id);
 
@@ -41,7 +41,7 @@ public class ReviewsService(ApplicationDbContext _context,
         return (float)averageRating;
     }
 
-    public async Task<int> GetNumberOfReviewsForBook(int id)
+    public async Task<int> GetNumberOfReviewsForBookAsync(int id)
     {
         var book = await _booksService.GetBookAsync(id);
 
@@ -52,7 +52,7 @@ public class ReviewsService(ApplicationDbContext _context,
         return numberOfReviews;
     }
 
-    public async Task<bool> ReviewExistsByUserForBook(int bookId, string userId)
+    public async Task<bool> ReviewExistsByUserForBookAsync(int bookId, string userId)
     {
         return await _context.Reviews
             .Where(r => r.BookId == bookId)

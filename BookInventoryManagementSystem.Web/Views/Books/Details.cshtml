@@ -1,4 +1,5 @@
 ﻿@model BookViewModelWithIdAndReviews
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Details";
@@ -7,106 +8,143 @@
 
 <h1><strong>@Model.Title</strong> by @Model.Author</h1>
 
-@if (!string.IsNullOrEmpty(Model.CoverImageURL))
-{
-    <div>
-        <hr />
-        <br />
-        <img src="@Model.CoverImageURL" style="max-height: 400px; width: auto" alt="Cover Image" loading="lazy"/>
-        <br />
-    </div>
-}
-
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AverageRating)
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.NumberOfReviews == 0)
-            {
-                <text>-</text>
-            }
-            else if (Model.NumberOfReviews == 1)
-            {
-                @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) review)</text>
-            }
-            else
-            {
-                @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
-            }
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PublicationYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PublicationYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ISBN)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ISBN)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tags)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Tags)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index" class="btn btn-primary px-0" style="width: 100px">Back</a>
-    <a asp-controller="Reviews" asp-action="Create" asp-route-bookId="@Model?.Id" class="btn btn-info px-0" style="width: 100px">Review</a>
-
+@* Book image and Delete button *@
+<div class="d-flex align-items-start mb-3">
+    @if (!string.IsNullOrEmpty(Model.CoverImageURL))
+    {
+        <img src="@Model.CoverImageURL" style="max-height: 400px; width: auto" alt="Cover Image" loading="lazy" class="me-3" />
+    }
     @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
     {
-        <br />
-        <br />
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-0" style="width: 100px">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger px-0" style="width: 100px">Delete</a>
+        <div class="d-flex flex-column ms-auto">
+            <a asp-action="Delete" asp-route-id="@Model?.Id" class="btn btn-danger px-0" style="width: 120px">Delete Book</a>
+        </div>
     }
 </div>
 
+@* Book info section *@
+<div>
+    <hr />
+    <div class="d-flex align-items-start">
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.AverageRating)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.NumberOfReviews == 0)
+                {
+                    <text>-</text>
+                }
+                else if (Model.NumberOfReviews == 1)
+                {
+                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) review)</text>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PublicationYear)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.PublicationYear)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ISBN)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ISBN)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Genre)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Genre)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Tags)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Tags)
+            </dd>
+        </dl>
+        <div class="d-flex flex-column ms-auto">
+            @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+            {
+                <div class="d-flex flex-column ms-auto">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-0 mb-2" style="width: 120px">Edit Details</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@* Buttons at bottom of book info section *@
+<div>
+    <a asp-action="Index" class="btn btn-primary px-0" style="width: 100px">Back</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @if (!Model.LoggedInUserHasExistingReview)
+        {
+            <a asp-controller="Reviews" asp-action="Create" asp-route-bookId="@Model?.Id" class="btn btn-info px-0" style="width: 120px">Write Review</a>
+        }
+    }
+</div>
+
+@* Reviews section *@
+@if (Model.Reviews.Count() > 0)
+{
+    <hr />
+    <h2>Reviews (@Model.Reviews.Count())</h2>
+}
 <div>
     @foreach (var review in Model.Reviews)
     {
         <hr />
-        @if (Model.LoggedInUserId != null && Model.LoggedInUserId == @review.ReviewerId)
-        {
-            <h3>
-                Your review
-            </h3>
-        }
-        else
-        {
-            <h3>
-                Review by @review.Reviewer.FirstName @review.Reviewer.LastName
-            </h3>
-        }
-        <h4>
-            Rating: @review.RatingOutOfFive
-        </h4>
+        <div class="d-flex align-items-start">
+            @* Left side of individual review block - details *@
+            <div>
+                @if (Model.LoggedInUserHasExistingReview)
+                {
+                    <h3>
+                        Your review
+                    </h3>
+                }
+                else
+                {
+                    <h3>
+                        Review by @review.Reviewer.FirstName @review.Reviewer.LastName
+                    </h3>
+                }
+                <h4>
+                    Rating: @review.RatingOutOfFive
+                </h4>
+            </div>
+            @* Right side of individual review block - buttons *@
+            <div class="d-flex flex-column ms-auto">
+                @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+                {
+                    @if (Model.LoggedInUserHasExistingReview)
+                    {
+                        <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
+                    }
+                    <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger px-0" style="width: 120px">Delete Review</a>
+                }
+            </div>
+        </div>
         <p>
             @review.ReviewText
         </p>

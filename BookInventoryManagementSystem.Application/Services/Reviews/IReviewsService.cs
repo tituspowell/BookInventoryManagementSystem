@@ -5,8 +5,8 @@ namespace BookInventoryManagementSystem.Application.Services.Reviews
     {
         Task CreateAsync(ReviewCreateViewModel reviewVM);
         Task<IEnumerable<Review>> GetReviewsForBookAsync(int id);
-        Task<float> GetAverageRatingForBook(int id);
-        Task<int> GetNumberOfReviewsForBook(int id);
-        Task<bool> ReviewExistsByUserForBook(int bookId, string userId);
+        Task<float> GetAverageRatingForBookAsync(int id);
+        Task<int> GetNumberOfReviewsForBookAsync(int id);
+        Task<bool> ReviewExistsByUserForBookAsync(int bookId, string userId);
     }
 }

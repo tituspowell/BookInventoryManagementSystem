@@ -55,7 +55,7 @@ public class ReviewsController(ApplicationDbContext _context,
 
         // Only allow one review per book for each user, so if one
         // exists then redirect to the Edit page
-        if (await _reviewsService.ReviewExistsByUserForBook(bookId, userId))
+        if (await _reviewsService.ReviewExistsByUserForBookAsync(bookId, userId))
         {
             return RedirectToAction("Edit", new { id = bookId });
         }
