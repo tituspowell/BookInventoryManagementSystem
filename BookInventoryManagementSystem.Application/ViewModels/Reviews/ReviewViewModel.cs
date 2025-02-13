@@ -1,9 +1,8 @@
-﻿using BookInventoryManagementSystem.Application.ViewModels.CustomValidationAttributes;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace BookInventoryManagementSystem.Application.ViewModels.Reviews;
 
-public class ReviewCreateViewModel
+public class ReviewViewModel
 {
     // All the common fields for a book, excluding ID since that's not always needed in the various view models
     [Required]

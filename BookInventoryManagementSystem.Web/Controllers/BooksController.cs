@@ -18,34 +18,17 @@ namespace BookInventoryManagementSystem.Web.Controllers
             var books = from book in await _booksReviewsSharedService.GetAllBookViewModelsAsync()
                         select book;
 
-            switch (sortOrder)
+            books = sortOrder switch
             {
-                case "title_desc":
-                    books = books.OrderByDescending(b => b.Title);
-                    break;
-                case "Author":
-                    books = books.OrderBy(b => b.Author);
-                    break;
-                case "author_desc":
-                    books = books.OrderByDescending(b => b.Author);
-                    break;
-                case "Rating":
-                    books = books.OrderBy(b => b.AverageRating);
-                    break;
-                case "rating_desc":
-                    books = books.OrderByDescending(b => b.AverageRating);
-                    break;
-                case "Date":
-                    books = books.OrderBy(b => b.PublicationYear);
-                    break;
-                case "date_desc":
-                    books = books.OrderByDescending(b => b.PublicationYear);
-                    break;
-                default:
-                    books = books.OrderBy(b => b.Title);
-                    break;
-            }
-
+                "title_desc" => books.OrderByDescending(b => b.Title),
+                "Author" => books.OrderBy(b => b.Author),
+                "author_desc" => books.OrderByDescending(b => b.Author),
+                "Rating" => books.OrderBy(b => b.AverageRating),
+                "rating_desc" => books.OrderByDescending(b => b.AverageRating),
+                "Date" => books.OrderBy(b => b.PublicationYear),
+                "date_desc" => books.OrderByDescending(b => b.PublicationYear),
+                _ => books.OrderBy(b => b.Title),
+            };
             return View(books.ToList());
         }
 
@@ -105,13 +88,14 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 return NotFound();
             }
 
-            var book = await _booksReviewsSharedService.GetBookViewModelWithIdAndReviewsAsync(id.Value);
+            var bookVM = await _booksReviewsSharedService.GetBookViewModelWithIdAndReviewsAsync(id.Value);
 
-            if (book == null)
+            if (bookVM == null)
             {
                 return NotFound();
             }
-            return View(book);
+
+            return View(bookVM);
         }
 
         // POST: Books/Edit/5

@@ -67,7 +67,7 @@ public class ReviewsController(ApplicationDbContext _context,
             return NotFound();
         }
 
-        var reviewVM = new ReviewCreateViewModelWithBookInfo() {
+        var reviewVM = new ReviewViewModelWithBookInfo() {
             BookId = bookId,
             ReviewerId = userId,
             RatingOutOfFive = 5,
@@ -83,7 +83,7 @@ public class ReviewsController(ApplicationDbContext _context,
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Roles = "Librarian,Administrator,Reader")]
-    public async Task<IActionResult> Create(ReviewCreateViewModel reviewVM)
+    public async Task<IActionResult> Create(ReviewViewModel reviewVM)
     {
         if (ModelState.IsValid)
         {
@@ -102,14 +102,23 @@ public class ReviewsController(ApplicationDbContext _context,
             return NotFound();
         }
 
-        var review = await _context.Reviews.FindAsync(id);
-        if (review == null)
+        // Verify that either they are a librarian or admin, or it's their own review
+        var allowedToEditReview = await _reviewsService.AllowedToEditReview(id.Value);
+        if (!allowedToEditReview)
+        {
+            // TODO: better error handling
+            return NotFound();
+        }
+
+        var reviewVM = await _reviewsService.GetReviewViewModelAsync(id.Value);
+        if (reviewVM == null)
         {
             return NotFound();
         }
-        ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author", review.BookId);
-        ViewData["ReviewerId"] = new SelectList(_context.Users, "Id", "Id", review.ReviewerId);
-        return View(review);
+
+        //ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author", reviewVM.BookId);
+        //ViewData["ReviewerId"] = new SelectList(_context.Users, "Id", "Id", reviewVM.ReviewerId);
+        return View(reviewVM);
     }
 
     // POST: Reviews/Edit/5

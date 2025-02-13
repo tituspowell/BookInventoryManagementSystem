@@ -32,7 +32,7 @@ public class UserService(UserManager<ApplicationUser> _userManager,
 
         var userViewModel = new UserViewModel
         {
-            Id = applicationUser.Id,
+            Id = userId,
             FirstName = applicationUser.FirstName,
             LastName = applicationUser.LastName,
             Role = role
@@ -97,6 +97,15 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         }
 
         return await _userManager.UpdateAsync(user);
+    }
+
+    public async Task<bool> IsLibrarianOrAdminAsync(string userId)
+    {
+        var applicationUser = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found!");
+
+        var role = await GetRoleForApplicationUserAsync(applicationUser);
+
+        return role == RolesEnum.Librarian || role == RolesEnum.Administrator;
     }
 
     // Private methods
