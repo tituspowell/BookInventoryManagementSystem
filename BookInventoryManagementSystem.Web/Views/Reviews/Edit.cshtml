@@ -26,16 +26,15 @@
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="BookId" />
             <input type="hidden" asp-for="ReviewerId" />
+            <input type="hidden" asp-for="ReviewerName" />
             <input type="hidden" asp-for="BookTitle" />
             <input type="hidden" asp-for="BookAuthor" />
+            <br/>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary px-0 mb-2" style="width: 100px" />
+                <input type="submit" value="Save" class="btn btn-warning px-0" style="width: 100px" />
+                <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-primary px-0" style="width: 100px">Cancel</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger px-0" style="width: 100px">Delete</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-warning px-0" style="width: 100px">Cancel</a>
-</div>
-

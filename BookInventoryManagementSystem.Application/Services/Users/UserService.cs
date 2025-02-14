@@ -36,6 +36,12 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         return user.Id;
     }
 
+    public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+    {
+        var applicationUser = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found!");
+        return applicationUser;
+    }
+
     public async Task<UserViewModel> GetUserViewModelByIdAsync(string userId)
     {
         var applicationUser = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found!");
@@ -118,6 +124,12 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         var role = await GetRoleForApplicationUserAsync(applicationUser);
 
         return role == RolesEnum.Librarian || role == RolesEnum.Administrator;
+    }
+
+    public async Task<string> GetFullNameAsync(string userId)
+    {
+        var applicationUser = await _userManager.FindByIdAsync(userId) ?? throw new Exception("User not found!");
+        return $"{applicationUser.FirstName} {applicationUser.LastName}";
     }
 
     // Private methods

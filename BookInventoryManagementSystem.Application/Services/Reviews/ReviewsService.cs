@@ -72,6 +72,20 @@ public class ReviewsService(ApplicationDbContext _context,
         reviewVM.BookTitle = book.Title;
         reviewVM.BookAuthor = book.Author;
 
+        var reviewer = await _userService.GetUserByIdAsync(review.ReviewerId);
+        reviewVM.ReviewerName = $"{reviewer.FirstName} {reviewer.LastName}";
+
+        // TODO: four awaits doesn't feel very optimised...
+        var loggedInUser = await _userService.GetLoggedInApplicationUserAsync();
+        if (loggedInUser == null)
+        {
+            reviewVM.ReviewIsByLoggedInUser = false;
+        }
+        else
+        {
+            reviewVM.ReviewIsByLoggedInUser = review.ReviewerId == loggedInUser.Id;
+        }
+
         return reviewVM;
     }
 

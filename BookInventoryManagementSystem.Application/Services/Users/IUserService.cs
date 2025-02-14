@@ -11,5 +11,7 @@ namespace BookInventoryManagementSystem.Application.Services.Users
         Task<string?> GetIdOfLoggedInUserAsync();
         Task<bool> IsLibrarianOrAdminAsync(string userId);
         Task<string> GetLoggedInApplicationUserFirstNameAsync();
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<string> GetFullNameAsync(string userId);
     }
 }

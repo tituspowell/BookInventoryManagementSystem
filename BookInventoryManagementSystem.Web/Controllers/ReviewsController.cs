@@ -67,13 +67,18 @@ public class ReviewsController(ApplicationDbContext _context,
             return NotFound();
         }
 
+        // TODO: This is the fourth await this function - it must be possible to optimise...
+        var reviewerName = await _userService.GetFullNameAsync(userId);
+
         var reviewVM = new ReviewViewModelWithBookInfo() {
             BookId = bookId,
             ReviewerId = userId,
             RatingOutOfFive = 5,
             ReviewText = "",
             BookTitle = book.Title,
-            BookAuthor = book.Author
+            BookAuthor = book.Author,
+            ReviewerName = reviewerName,
+            ReviewIsByLoggedInUser = true,
         };
 
         return View(reviewVM);
@@ -116,8 +121,6 @@ public class ReviewsController(ApplicationDbContext _context,
             return NotFound();
         }
 
-        //ViewData["BookId"] = new SelectList(_context.Books, "Id", "Author", reviewVM.BookId);
-        //ViewData["ReviewerId"] = new SelectList(_context.Users, "Id", "Id", reviewVM.ReviewerId);
         return View(reviewVM);
     }
 
@@ -161,16 +164,21 @@ public class ReviewsController(ApplicationDbContext _context,
             return NotFound();
         }
 
-        var review = await _context.Reviews
-            .Include(r => r.Book)
-            .Include(r => r.Reviewer)
-            .FirstOrDefaultAsync(m => m.Id == id);
-        if (review == null)
+        // Verify that either they are a librarian or admin, or it's their own review
+        var allowedToEditReview = await _reviewsService.AllowedToEditReview(id.Value);
+        if (!allowedToEditReview)
+        {
+            // TODO: better error handling
+            return NotFound();
+        }
+
+        var reviewVM = await _reviewsService.GetReviewViewModelAsync(id.Value);
+        if (reviewVM == null)
         {
             return NotFound();
         }
 
-        return View(review);
+        return View(reviewVM);
     }
 
     // POST: Reviews/Delete/5
