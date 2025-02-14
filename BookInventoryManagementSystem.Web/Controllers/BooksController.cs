@@ -13,6 +13,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["AuthorSortParm"] = sortOrder == "Author" ? "author_desc" : "Author";
             ViewData["RatingSortParm"] = sortOrder == "Rating" ? "rating_desc" : "Rating";
+            ViewData["ReviewSortParm"] = sortOrder == "Reviews" ? "reviews_desc" : "Reviews";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
             var books = from book in await _booksReviewsSharedService.GetAllBookViewModelsAsync()
@@ -25,6 +26,8 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 "author_desc" => books.OrderByDescending(b => b.Author),
                 "Rating" => books.OrderBy(b => b.AverageRating),
                 "rating_desc" => books.OrderByDescending(b => b.AverageRating),
+                "Reviews" => books.OrderBy(b => b.NumberOfReviews),
+                "reviews_desc" => books.OrderByDescending(b => b.NumberOfReviews),
                 "Date" => books.OrderBy(b => b.PublicationYear),
                 "date_desc" => books.OrderByDescending(b => b.PublicationYear),
                 _ => books.OrderBy(b => b.Title),

@@ -25,6 +25,9 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["RatingSortParm"]">@Html.DisplayNameFor(model => model.AverageRating)</a>
             </th>
             <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["ReviewSortParm"]">@Html.DisplayNameFor(model => model.NumberOfReviews)</a>
+            </th>
+            <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.PublicationYear)</a>
             </th>
             <th>
@@ -36,41 +39,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @if (!string.IsNullOrEmpty(item.CoverImageURL))
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.CoverImageURL))
+                    {
+                        <img src="@item.CoverImageURL" style="max-height: 50px; width: auto" alt="Cover Image" loading="lazy" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                @if (item.NumberOfReviews > 0)
                 {
-                    <img src="@item.CoverImageURL" style="max-height: 50px; width: auto" alt="Cover Image" loading="lazy" />
+                    <strong>@Html.DisplayFor(modelItem => item.AverageRating)</strong>
                 }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @if (item.NumberOfReviews == 0)
-                {
-                    <text>-</text>
-                }
-                else if (item.NumberOfReviews == 1)
-                {
-                        <strong>@Html.DisplayFor(modelItem => item.AverageRating)</strong> <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) review)</text>
-                }
-                else
-                {
-                        <strong>@Html.DisplayFor(modelItem => item.AverageRating)</strong> <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) reviews)</text>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublicationYear)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary px-0" style="width: 100px">View</a>
-            </td>
-        </tr>
-}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfReviews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublicationYear)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary px-0" style="width: 100px">View</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
