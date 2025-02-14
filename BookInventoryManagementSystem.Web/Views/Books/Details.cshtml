@@ -117,7 +117,7 @@
         <div class="d-flex align-items-start">
             @* Left side of individual review block - details *@
             <div>
-                @if (Model.LoggedInUserHasExistingReview)
+                @if (review.ReviewerId == Model.LoggedInUserId)
                 {
                     <h3>
                         Your review
@@ -137,7 +137,7 @@
             <div class="d-flex flex-column ms-auto">
                 @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
                 {
-                    @if (Model.LoggedInUserHasExistingReview)
+                    @if (review.ReviewerId == Model.LoggedInUserId)
                     {
                         <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
                     }
