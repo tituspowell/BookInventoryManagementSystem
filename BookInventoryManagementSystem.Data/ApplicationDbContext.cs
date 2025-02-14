@@ -34,6 +34,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(r => r.BookId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Entity<Review>()
+            .Property(r => r.CreatedAt)
+            .HasDefaultValueSql("GETDATE()");
+
         // Apply the configurations from the Configurations folder to seed the database with our default starter users and roles
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }

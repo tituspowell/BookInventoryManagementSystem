@@ -45,7 +45,7 @@ public class BooksReviewsSharedService(
         // Add the reviews if there are any, and order them
         var reviews = await _reviewsService.GetReviewsForBookAsync(book.Id);
         bookVM.Reviews = reviews.OrderByDescending(r => r.ReviewerId == bookVM.LoggedInUserId)
-                                //.ThenByDescending(r => r.CreatedAt) QQQQ add this field
+                                .ThenByDescending(r => r.CreatedAt)
                                 .ToList();
 
         bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserId);
