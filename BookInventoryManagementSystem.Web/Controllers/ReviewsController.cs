@@ -186,14 +186,17 @@ public class ReviewsController(ApplicationDbContext _context,
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var review = await _context.Reviews.FindAsync(id);
-        if (review != null)
+        // Verify that either they are a librarian or admin, or it's their own review
+        var allowedToEditReview = await _reviewsService.AllowedToEditReview(id);
+        if (!allowedToEditReview)
         {
-            _context.Reviews.Remove(review);
+            // TODO: better error handling
+            return NotFound();
         }
 
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
+        await _reviewsService.DeleteAsync(id);
+
+        return RedirectToAction("Index", "Books");
     }
 
     private bool ReviewExists(int id)

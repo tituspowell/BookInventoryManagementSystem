@@ -132,6 +132,17 @@ public class ReviewsService(ApplicationDbContext _context,
         await _context.SaveChangesAsync();
     }
 
+    public async Task DeleteAsync(int id)
+    {
+        var review = await _context.Reviews.FindAsync(id);
+        if (review != null)
+        {
+            _context.Reviews.Remove(review);
+        }
+
+        await _context.SaveChangesAsync();
+    }
+
     // Private methods
 
     private async Task<bool> ReviewIsByUserAsync(int id, string userId)
@@ -141,4 +152,5 @@ public class ReviewsService(ApplicationDbContext _context,
             .Where(r => r.ReviewerId == userId)
             .AnyAsync();
     }
+
 }

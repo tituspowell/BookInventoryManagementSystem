@@ -24,6 +24,7 @@
             </div>
             <input type="hidden" asp-for="BookId" />
             <input type="hidden" asp-for="ReviewerId" />
+            <br/>
             <div class="form-group">
                 <input type="submit" value="Post" class="btn btn-primary px-0" style="width: 100px" />
                 <a asp-controller="Books" asp-action="Details" asp-route-id="@Model.BookId" class="btn btn-warning px-0" style="width: 100px">Cancel</a>
