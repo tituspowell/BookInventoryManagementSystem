@@ -29,12 +29,16 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="mb-4 pb-2">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <span>Hello @User.Identity?.Name!</span>
-                            </li>
-                        }
+                        <li class="nav-item">
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <span>Hi @User.Identity?.Name!</span>
+                            }
+                            else
+                            {
+                                <span>Welcome! To leave a review, please login below.</span>
+                            }
+                        </li>
 
                         @* Sidebar / Home section, with Books option *@
 
@@ -95,7 +99,6 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="sidebar-item">
-
                                 <form class="form-inline sidebar-link sidebar-link warning-hover-bg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Books")" method="post">
                                     <span class="aside-icon p-2 bg-light-warning rounded-3">
                                         <i class="ti ti-logout fs-7 text-warning"></i>
@@ -104,17 +107,6 @@
                                         <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                                     </span>
                                 </form>
-
-
-
-                                @* <a class="sidebar-link sidebar-link warning-hover-bg"
-                                   asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Books", new { area = "" })"
-                                   aria-expanded="false">
-                                    <span class="aside-icon p-2 bg-light-warning rounded-3">
-                                        <i class="ti ti-login fs-7 text-warning"></i>
-                                    </span>
-                                    <span class="hide-menu ms-2 ps-1">Logout</span>
-                                </a> *@
                             </li>
                         }
                         else
