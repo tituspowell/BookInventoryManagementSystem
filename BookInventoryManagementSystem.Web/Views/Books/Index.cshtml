@@ -57,11 +57,11 @@
                 }
                 else if (item.NumberOfReviews == 1)
                 {
-                        @Html.DisplayFor(modelItem => item.AverageRating) <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) review)</text>
+                        <strong>@Html.DisplayFor(modelItem => item.AverageRating)</strong> <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) review)</text>
                 }
                 else
                 {
-                        @Html.DisplayFor(modelItem => item.AverageRating) <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) reviews)</text>
+                        <strong>@Html.DisplayFor(modelItem => item.AverageRating)</strong> <text> (@Html.DisplayFor(modelItem => item.NumberOfReviews) reviews)</text>
                 }
             </td>
             <td>
