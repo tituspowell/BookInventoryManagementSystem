@@ -96,7 +96,7 @@
                         {
                             <li class="sidebar-item">
 
-                                <form class="form-inline sidebar-link sidebar-link warning-hover-bg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                <form class="form-inline sidebar-link sidebar-link warning-hover-bg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Books")" method="post">
                                     <span class="aside-icon p-2 bg-light-warning rounded-3">
                                         <i class="ti ti-logout fs-7 text-warning"></i>
                                     </span>
