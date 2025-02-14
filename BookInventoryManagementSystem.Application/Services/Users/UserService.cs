@@ -12,6 +12,18 @@ public class UserService(UserManager<ApplicationUser> _userManager,
         return await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
     }
 
+    public async Task<string> GetLoggedInApplicationUserFirstNameAsync()
+    {
+        // Not currently used
+        ApplicationUser user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
+        if (user == null)
+        {
+            return "";
+        }
+
+        return user.FirstName;
+    }
+
     public async Task<string?> GetIdOfLoggedInUserAsync()
     {
         var user = await GetLoggedInApplicationUserAsync();
