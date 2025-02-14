@@ -123,6 +123,13 @@
                         Your review
                     </h3>
                 }
+                else if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+                {
+                    <h3>
+                        @* Only show the reviewer's last name if the user has privileges, for privacy reasons *@
+                        Review by @review.Reviewer.FirstName @review.Reviewer.LastName
+                    </h3>
+                }
                 else
                 {
                     <h3>
