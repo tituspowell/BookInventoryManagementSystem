@@ -39,14 +39,17 @@ public class BooksReviewsSharedService(
 
         var bookVM = _mapper.Map<BookViewModelWithIdAndReviews>(book);
 
-        // Add the reviews if there are any
-        bookVM.Reviews = await _reviewsService.GetReviewsForBookAsync(book.Id);
-
+        // Get the logged-in user's ID
         bookVM.LoggedInUserId = await _userService.GetIdOfLoggedInUserAsync();
+
+        // Add the reviews if there are any, and order them
+        var reviews = await _reviewsService.GetReviewsForBookAsync(book.Id);
+        bookVM.Reviews = reviews.OrderByDescending(r => r.ReviewerId == bookVM.LoggedInUserId)
+                                //.ThenByDescending(r => r.CreatedAt) QQQQ add this field
+                                .ToList();
 
         bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserId);
 
         return bookVM;
     }
-
 }
