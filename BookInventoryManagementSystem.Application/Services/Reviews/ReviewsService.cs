@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BookInventoryManagementSystem.Application.Services.Users;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookInventoryManagementSystem.Application.Services.Reviews;
@@ -16,6 +15,30 @@ public class ReviewsService(ApplicationDbContext _context,
 
         _context.Add(review);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<IEnumerable<ReviewViewModelWithBookInfoAndId>> GetAllReviewViewModelsAsync()
+    {
+        var reviews = await _context.Reviews
+            .Include(r => r.Book)
+            .Include(r => r.Reviewer)
+            .ToListAsync();
+
+        var reviewVMs = _mapper.Map<List<ReviewViewModelWithBookInfoAndId>>(reviews);
+
+        // AutoMapper has converted the list of reviews into a list of review view models.
+        // It's missing the 'ReviewerName' field though as there wasn't a one-to-one mapping for that.
+        // So calculate that here
+        foreach (var reviewVM in reviewVMs)
+        {
+            // Find the corresponding review. We probably could just use a shared index to both lists,
+            // but this way feels safer
+            var matchingReview = reviews.Single(r => r.Id == reviewVM.Id) ?? throw new Exception($"Failed to convert review {reviewVM.Id} to a view model!");
+
+            reviewVM.ReviewerName = GetReviewerFullName(matchingReview.Reviewer);
+        }
+
+        return reviewVMs;
     }
 
     public async Task<IEnumerable<Review>> GetReviewsForBookAsync(int id)
@@ -73,7 +96,7 @@ public class ReviewsService(ApplicationDbContext _context,
         reviewVM.BookAuthor = book.Author;
 
         var reviewer = await _userService.GetUserByIdAsync(review.ReviewerId);
-        reviewVM.ReviewerName = $"{reviewer.FirstName} {reviewer.LastName}";
+        reviewVM.ReviewerName = GetReviewerFullName(reviewer);
 
         // TODO: four awaits doesn't feel very optimised...
         var loggedInUser = await _userService.GetLoggedInApplicationUserAsync();
@@ -88,6 +111,7 @@ public class ReviewsService(ApplicationDbContext _context,
 
         return reviewVM;
     }
+
 
     public async Task<bool> AllowedToEditReview(int id)
     {
@@ -152,5 +176,7 @@ public class ReviewsService(ApplicationDbContext _context,
             .Where(r => r.ReviewerId == userId)
             .AnyAsync();
     }
+    private string GetReviewerFullName(ApplicationUser reviewer) =>
+        $"{reviewer.FirstName} {reviewer.LastName}";
 
 }

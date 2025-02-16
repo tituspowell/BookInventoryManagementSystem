@@ -4,6 +4,7 @@ namespace BookInventoryManagementSystem.Application.Services.Reviews
     public interface IReviewsService
     {
         Task CreateAsync(ReviewViewModel reviewVM);
+        Task<IEnumerable<ReviewViewModelWithBookInfoAndId>> GetAllReviewViewModelsAsync();
         Task<IEnumerable<Review>> GetReviewsForBookAsync(int id);
         Task<float> GetAverageRatingForBookAsync(int id);
         Task<int> GetNumberOfReviewsForBookAsync(int id);

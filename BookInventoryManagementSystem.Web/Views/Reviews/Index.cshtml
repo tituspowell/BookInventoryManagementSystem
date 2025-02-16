@@ -1,54 +1,42 @@
-﻿@model IEnumerable<BookInventoryManagementSystem.Data.Entities.Review>
+﻿@model IEnumerable<ReviewViewModelWithBookInfoAndId>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>All Reviews</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RatingOutOfFive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReviewText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reviewer)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RatingOutOfFive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Book.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reviewer.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div>
+    @foreach (var review in Model)
+    {
+        <hr />
+        <div class="d-flex align-items-start">
+            @* Left side of individual review block - details *@
+            <div>
+                <h3>
+                    @* The user must have privileges to see this page, so it's okay to show the reviewer's last name *@
+                    Review by @review.ReviewerName
+                </h3>
+                <h4>
+                    Rating: @review.RatingOutOfFive
+                </h4>
+            </div>
+            @* Right side of individual review block - buttons *@
+            @* <div class="d-flex flex-column ms-auto">
+                @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
+                {
+                    @if (review.ReviewerId == Model.LoggedInUserId)
+                    {
+                        <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
+                    }
+                    <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger px-0" style="width: 120px">Delete Review</a>
+                }
+            </div> *@
+        </div>
+        <p>
+            @review.ReviewText
+        </p>
+    }
+    <hr />
+</div>

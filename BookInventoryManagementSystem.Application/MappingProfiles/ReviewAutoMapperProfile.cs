@@ -11,7 +11,7 @@ internal class ReviewAutoMapperProfile : Profile
         .ForMember(dest => dest.Book, opt => opt.Ignore())
         .ForMember(dest => dest.Reviewer, opt => opt.Ignore());
 
-        // For Edit
+        // For Edit and viewing all reviews
         CreateMap<Review, ReviewViewModelWithBookInfoAndId>().ReverseMap();
     }
 }

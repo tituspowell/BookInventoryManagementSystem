@@ -13,31 +13,13 @@ public class ReviewsController(ApplicationDbContext _context,
     IReviewsService _reviewsService) : Controller
 {
     // GET: Reviews
-    //public async Task<IActionResult> Index()
-    //{
-    //    var applicationDbContext = _context.Reviews.Include(r => r.Book).Include(r => r.Reviewer);
-    //    return View(await applicationDbContext.ToListAsync());
-    //}
-
-    // GET: Reviews/Details/5
-    //public async Task<IActionResult> Details(int? id)
-    //{
-    //    if (id == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    var review = await _context.Reviews
-    //        .Include(r => r.Book)
-    //        .Include(r => r.Reviewer)
-    //        .FirstOrDefaultAsync(m => m.Id == id);
-    //    if (review == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    return View(review);
-    //}
+    [HttpGet]
+    [Authorize(Roles = "Librarian,Administrator")]
+    public async Task<IActionResult> Index()
+    {
+        var reviews = await _reviewsService.GetAllReviewViewModelsAsync();
+        return View(reviews);
+    }
 
     // GET: Reviews/Create
     [HttpGet]
