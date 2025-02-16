@@ -152,12 +152,12 @@
             </div>
             @* Right side of individual review block - buttons *@
             <div class="d-flex flex-column ms-auto">
+                @if (review.ReviewerId == Model.LoggedInUserId)
+                {
+                    <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
+                }
                 @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
                 {
-                    @if (review.ReviewerId == Model.LoggedInUserId)
-                    {
-                        <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
-                    }
                     <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger px-0" style="width: 120px">Delete Review</a>
                 }
             </div>
