@@ -119,26 +119,35 @@
             <div>
                 @if (review.ReviewerId == Model.LoggedInUserId)
                 {
-                    <h3>
-                        Your review
-                    </h3>
+                    <h4 style="color: darkblue">
+                        Your review on @review.CreatedAt.ToShortDateString()
+                    </h4>
                 }
                 else if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
                 {
-                    <h3>
-                        @* Only show the reviewer's last name if the user has privileges, for privacy reasons *@
-                        Review by @review.Reviewer.FirstName @review.Reviewer.LastName
-                    </h3>
+                    <h4>
+                        @* Only show the reviewer's last name if the user has librarian/admin privileges, for privacy reasons *@
+                        Review by <strong>@review.Reviewer.FirstName @review.Reviewer.LastName</strong> on @review.CreatedAt.ToShortDateString()
+                    </h4>
                 }
                 else
                 {
-                    <h3>
-                        Review by @review.Reviewer.FirstName
-                    </h3>
+                    <h4>
+                        Review by <strong>@review.Reviewer.FirstName</strong> on @review.CreatedAt.ToShortDateString()
+                    </h4>
                 }
-                <h4>
-                    Rating: @review.RatingOutOfFive
-                </h4>
+                @if (review.ReviewerId == Model.LoggedInUserId)
+                {
+                    <h5 style="color: darkblue">
+                        Rating: <strong>@review.RatingOutOfFive</strong>
+                    </h5>
+                }
+                else
+                {
+                    <h5>
+                        Rating: <strong>@review.RatingOutOfFive</strong>
+                    </h5>
+                }
             </div>
             @* Right side of individual review block - buttons *@
             <div class="d-flex flex-column ms-auto">
@@ -152,9 +161,18 @@
                 }
             </div>
         </div>
-        <p>
-            @review.ReviewText
-        </p>
+        @if (review.ReviewerId == Model.LoggedInUserId)
+        {
+            <p style="color: darkblue">
+                @review.ReviewText
+            </p>
+        }
+        else
+        {
+            <p>
+                @review.ReviewText
+            </p>
+        }
     }
     <hr />
 </div>

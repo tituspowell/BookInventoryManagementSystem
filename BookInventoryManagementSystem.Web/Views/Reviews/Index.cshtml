@@ -20,7 +20,7 @@
                 </h2>
                 <h4>
                     @* The user must have librarian/admin privileges to see this page, so it's okay to show the reviewer's last name *@
-                    Review by <strong>@review.ReviewerName</strong>
+                    Review by <strong>@review.ReviewerName</strong> on @review.CreatedAt.ToShortDateString()
                 </h4>
                 <h5>
                     Rating: <strong>@review.RatingOutOfFive</strong>

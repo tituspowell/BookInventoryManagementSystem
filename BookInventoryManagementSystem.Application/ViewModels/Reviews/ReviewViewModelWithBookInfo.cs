@@ -7,4 +7,5 @@ public class ReviewViewModelWithBookInfo : ReviewViewModel
     public required string BookAuthor { get; set; }
     public required string ReviewerName { get; set; }
     public required bool ReviewIsByLoggedInUser { get; set; }
+    public DateTime CreatedAt { get; set; }
 }
