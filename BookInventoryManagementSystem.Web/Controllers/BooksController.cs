@@ -122,7 +122,7 @@ namespace BookInventoryManagementSystem.Web.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(bookVM.Id))
+                    if (!_booksService.BookExists(id))
                     {
                         return NotFound();
                     }
@@ -165,11 +165,6 @@ namespace BookInventoryManagementSystem.Web.Controllers
             await _booksService.DeleteAsync(id);
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BookExists(int id)
-        {
-            return _booksService.BookExists(id);
         }
     }
 }
