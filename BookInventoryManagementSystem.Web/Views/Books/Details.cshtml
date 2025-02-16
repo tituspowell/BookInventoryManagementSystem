@@ -119,6 +119,7 @@
             <div>
                 @if (review.ReviewerId == Model.LoggedInUserId)
                 {
+                    // TODO: do the conditional styling properly using CSS to avoid all the repetition below
                     <h4 style="color: darkblue">
                         Your review on @review.CreatedAt.ToShortDateString()
                     </h4>
