@@ -79,8 +79,13 @@ public class ReviewsService(ApplicationDbContext _context,
         return numberOfReviews;
     }
 
-    public async Task<bool> ReviewExistsByUserForBookAsync(int bookId, string userId)
+    public async Task<bool> ReviewExistsByUserForBookAsync(int bookId, string? userId)
     {
+        if (string.IsNullOrEmpty(userId))
+        {
+            return false; 
+        }
+
         return await _context.Reviews
             .Where(r => r.BookId == bookId)
             .Where(r => r.ReviewerId == userId)

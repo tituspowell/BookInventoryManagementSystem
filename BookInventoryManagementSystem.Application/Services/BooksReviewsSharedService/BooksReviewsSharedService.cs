@@ -30,25 +30,23 @@ public class BooksReviewsSharedService(
 
     public async Task<BookViewModelWithIdAndReviews> GetBookViewModelWithIdAndReviewsAsync(int bookId)
     {
-        var book = await _booksService.GetBookAsync(bookId);
-
-        if (book == null)
-        {
-            return null;
-        }
+        var book = await _booksService.GetBookAsync(bookId) ?? throw new Exception($"Book with ID {bookId} not found!");
 
         var bookVM = _mapper.Map<BookViewModelWithIdAndReviews>(book);
 
         // Get the logged-in user's ID
-        bookVM.LoggedInUserId = await _userService.GetIdOfLoggedInUserAsync();
+        bookVM.LoggedInUserIdIfLoggedIn = await _userService.GetIdOfLoggedInUserAsync();
 
         // Add the reviews if there are any, and order them
         var reviews = await _reviewsService.GetReviewsForBookAsync(book.Id);
-        bookVM.Reviews = reviews.OrderByDescending(r => r.ReviewerId == bookVM.LoggedInUserId)
+        bookVM.Reviews = reviews.OrderByDescending(r => r.ReviewerId == bookVM.LoggedInUserIdIfLoggedIn)
                                 .ThenByDescending(r => r.CreatedAt)
                                 .ToList();
 
-        bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserId);
+        bookVM.NumberOfReviews = bookVM.Reviews.Count();
+        bookVM.AverageRating = (float)bookVM.Reviews.Average(r => r.RatingOutOfFive);
+
+        bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserIdIfLoggedIn);
 
         return bookVM;
     }

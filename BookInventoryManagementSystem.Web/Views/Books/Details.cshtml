@@ -49,11 +49,11 @@
                 }
                 else if (Model.NumberOfReviews == 1)
                 {
-                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) review)</text>
+                    <text>@Html.DisplayFor(model => model.AverageRating) (from @Html.DisplayFor(model => model.NumberOfReviews) review)</text>
                 }
                 else
                 {
-                    @Html.DisplayFor(model => model.AverageRating) <text>(@Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
+                    <text>@Html.DisplayFor(model => model.AverageRating) (from @Html.DisplayFor(model => model.NumberOfReviews) reviews)</text>
                 }
             </dd>
             <dt class="col-sm-2">
@@ -117,7 +117,7 @@
         <div class="d-flex align-items-start">
             @* Left side of individual review block - details *@
             <div>
-                @if (review.ReviewerId == Model.LoggedInUserId)
+                @if (review.ReviewerId == Model.LoggedInUserIdIfLoggedIn)
                 {
                     // TODO: do the conditional styling properly using CSS to avoid all the repetition below
                     <h4 style="color: darkblue">
@@ -137,7 +137,7 @@
                         Review by <strong>@review.Reviewer.FirstName</strong> on @review.CreatedAt.ToShortDateString()
                     </h4>
                 }
-                @if (review.ReviewerId == Model.LoggedInUserId)
+                @if (review.ReviewerId == Model.LoggedInUserIdIfLoggedIn)
                 {
                     <h5 style="color: darkblue">
                         Rating: <strong>@review.RatingOutOfFive</strong>
@@ -152,7 +152,7 @@
             </div>
             @* Right side of individual review block - buttons *@
             <div class="d-flex flex-column ms-auto">
-                @if (review.ReviewerId == Model.LoggedInUserId)
+                @if (review.ReviewerId == Model.LoggedInUserIdIfLoggedIn)
                 {
                     <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
                 }
@@ -162,7 +162,7 @@
                 }
             </div>
         </div>
-        @if (review.ReviewerId == Model.LoggedInUserId)
+        @if (review.ReviewerId == Model.LoggedInUserIdIfLoggedIn)
         {
             <p style="color: darkblue">
                 @review.ReviewText

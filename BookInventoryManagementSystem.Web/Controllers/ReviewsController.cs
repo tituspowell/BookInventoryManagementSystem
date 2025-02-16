@@ -52,6 +52,7 @@ public class ReviewsController(ApplicationDbContext _context,
         // TODO: This is the fourth await this function - it must be possible to optimise...
         var reviewerName = await _userService.GetFullNameAsync(userId);
 
+        // TODO: And we're not using AutoMapper because...?
         var reviewVM = new ReviewViewModelWithBookInfo() {
             BookId = bookId,
             ReviewerId = userId,
