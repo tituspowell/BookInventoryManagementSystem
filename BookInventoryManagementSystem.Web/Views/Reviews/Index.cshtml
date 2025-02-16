@@ -14,25 +14,22 @@
         <div class="d-flex align-items-start">
             @* Left side of individual review block - details *@
             <div>
-                <h3>
-                    @* The user must have privileges to see this page, so it's okay to show the reviewer's last name *@
-                    Review by @review.ReviewerName
-                </h3>
+                <h2>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@review.BookId"><strong>@review.BookTitle</strong></a>
+                     by @review.BookAuthor
+                </h2>
                 <h4>
-                    Rating: @review.RatingOutOfFive
+                    @* The user must have librarian/admin privileges to see this page, so it's okay to show the reviewer's last name *@
+                    Review by <strong>@review.ReviewerName</strong>
                 </h4>
+                <h5>
+                    Rating: <strong>@review.RatingOutOfFive</strong>
+                </h5>
             </div>
             @* Right side of individual review block - buttons *@
-            @* <div class="d-flex flex-column ms-auto">
-                @if (User.IsInRole(Roles.Librarian) || User.IsInRole(Roles.Administrator))
-                {
-                    @if (review.ReviewerId == Model.LoggedInUserId)
-                    {
-                        <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-warning px-0" style="width: 120px">Edit Review</a>
-                    }
-                    <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger px-0" style="width: 120px">Delete Review</a>
-                }
-            </div> *@
+            <div class="d-flex flex-column ms-auto">
+                <a asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger px-0" style="width: 120px">Delete Review</a>
+            </div>
         </div>
         <p>
             @review.ReviewText

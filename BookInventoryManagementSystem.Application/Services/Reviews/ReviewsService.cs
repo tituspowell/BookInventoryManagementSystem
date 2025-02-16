@@ -22,6 +22,7 @@ public class ReviewsService(ApplicationDbContext _context,
         var reviews = await _context.Reviews
             .Include(r => r.Book)
             .Include(r => r.Reviewer)
+            .OrderByDescending(r => r.CreatedAt)
             .ToListAsync();
 
         var reviewVMs = _mapper.Map<List<ReviewViewModelWithBookInfoAndId>>(reviews);
