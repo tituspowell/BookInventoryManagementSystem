@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInventoryManagementSystem.Web", "BookInventoryManagementSystem.Web\BookInventoryManagementSystem.Web.csproj", "{24C4F8E0-16E9-4291-A6BE-696DF95A40A0}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInventoryManagementSystem.Common", "BookInventoryManagementSystem.Common\BookInventoryManagementSystem.Common.csproj", "{AC5D46DF-6F09-4FC7-A1D9-0F46F05AA626}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInventoryManagementSystem.Application", "BookInventoryManagementSystem.Application\BookInventoryManagementSystem.Application.csproj", "{249C83AA-970E-4423-8769-4DAB2D726873}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{048F2039-A7BB-4ECE-B6C6-D87B6FE86F91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

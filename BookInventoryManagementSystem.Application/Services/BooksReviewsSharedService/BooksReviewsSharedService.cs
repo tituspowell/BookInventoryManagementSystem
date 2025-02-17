@@ -44,7 +44,16 @@ public class BooksReviewsSharedService(
                                 .ToList();
 
         bookVM.NumberOfReviews = bookVM.Reviews.Count();
-        bookVM.AverageRating = (float)bookVM.Reviews.Average(r => r.RatingOutOfFive);
+
+        // Don't blow up if there are no reviews
+        if (bookVM.NumberOfReviews > 0)
+        {
+            bookVM.AverageRating = (float)bookVM.Reviews.Average(r => r.RatingOutOfFive);
+        }
+        else
+        {
+            bookVM.AverageRating = 0;
+        }
 
         bookVM.LoggedInUserHasExistingReview = await _reviewsService.ReviewExistsByUserForBookAsync(bookId, bookVM.LoggedInUserIdIfLoggedIn);
 
