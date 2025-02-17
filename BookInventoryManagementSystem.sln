@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInventoryManagementSyst
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookInventoryManagementSystem.Application", "BookInventoryManagementSystem.Application\BookInventoryManagementSystem.Application.csproj", "{249C83AA-970E-4423-8769-4DAB2D726873}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{048F2039-A7BB-4ECE-B6C6-D87B6FE86F91}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
