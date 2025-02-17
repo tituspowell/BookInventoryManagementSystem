@@ -85,6 +85,8 @@ For example, I realised my reviews had no 'Created' date field. So I added that 
 
 I created a Books controller, a Reviews controller and a Users controller, each with corresponding CRUD views. To keep the controllers thin, I separated most of the business logic out into services, one for each controller, which are then accessed via dependency injection. There is also a BooksReviewsSharedController, created to avoid circular dependencies when the BooksService needs data from the ReviewsService and vice versa.
 
+I also split the solution into separate projects for Application, Web, Common and Data. This was overkill for a small demo project but I wanted to approach it with best practices in mind.
+
 ### Validation and Security
 
 View models are used throughout, as DTOs passed between the controllers and the views, ensuring that only the necessary fields are ever accessible by the user, and to guard against overposting and underposting attacks.
