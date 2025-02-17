@@ -6,6 +6,12 @@
 
 The purpose of this project was to solidify my grasp of ASP.NET Core and Entity Framework Core after completing a course. It's a book inventory management system that incorporates identity and permissions - the UI shown and the actions available to users depend on their associated user role. It interacts with a local SQL database and performs CRUD operations for books, book reviews and users.
 
+## Demonstrating the project
+
+This is a tricky project to demonstrate, because a lot of the functionality is hidden if you're not a Librarian or Administrator. To fully appreciate it you need to log in and out at different access levels to see the authentication in action. So to simplify the demonstration I'll include a series of screenshots here with commentary. (As opposed to deploying it on Azure and giving everyone administrator access!)
+
+I'll follow this with a brief technical overview and then my thoughts on how the project could be taken further. The full code is here for anyone wanting to take a more detailed look at any aspect of the system.
+
 ## Access Levels
 
 There are four access levels, which control what users can do in the system:
@@ -14,12 +20,6 @@ There are four access levels, which control what users can do in the system:
 - **Reader**: a Reader is a logged in user with no special privileges. In addition to viewing the books and book reviews, they can also leave their own reviews.
 - **Librarian**: Librarians have additional privileges. They can add and delete books, and edit the details. They can also delete (but not edit) other people's book reviews.
 - **Administrator**: Administrators can do all of the above and also view users, edit their details and access level, and also delete them if need be.
-
-## Demonstrating the project
-
-This is a tricky project to demonstrate, because a lot of the functionality is hidden if you're not a Librarian or Administrator. To fully appreciate it you need to log in and out at different access levels to see the authentication in action. So to simplify the demonstration I'll include a series of screenshots here with commentary. (As opposed to deploying it on Azure and giving everyone administrator access!)
-
-I'll follow this with a brief technical overview and then my thoughts on how the project could be taken further. The full code is here for anyone wanting to take a more detailed look at any aspect of the system.
 
 ## 1 - Anonymous Access
 
