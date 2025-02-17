@@ -1,4 +1,4 @@
-# Book Inventory Management System : An ASP.NET Core Project
+# Book Inventory Management System : A Server-Side Project with Entity Framework and ASP.NET Core
 
 ![Screenshot](ReadmeScreenshots/0.PNG)
 
